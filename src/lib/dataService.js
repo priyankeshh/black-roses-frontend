@@ -11,7 +11,7 @@ const mockEvents = [
     description: 'A tactical woodland operation with multiple objectives and team-based gameplay.',
     date: '2023-12-15',
     time: '09:00 - 17:00',
-    location: 'Arnhem Battlefield'
+    location: 'Brasschaat Military Domain'
   },
   {
     id: '2',
@@ -19,7 +19,7 @@ const mockEvents = [
     description: 'CQB training in an abandoned factory complex. Focus on room clearing and building security.',
     date: '2024-01-20',
     time: '10:00 - 16:00',
-    location: 'Rotterdam Complex'
+    location: 'Antwerp Urban Training Facility'
   },
   {
     id: '3',
@@ -27,7 +27,7 @@ const mockEvents = [
     description: 'Special night operation with limited visibility. NVG and tactical lights recommended.',
     date: '2024-02-10',
     time: '18:00 - 00:00',
-    location: 'Utrecht Training Grounds'
+    location: 'Ghent Tactical Zone'
   }
 ];
 
@@ -78,7 +78,7 @@ export const getEventById = async (id) => {
 export const createEvent = async (eventData) => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000));
-  
+
   // In a real implementation, this would add to the database
   console.log('Creating event:', eventData);
   return { success: true };
@@ -87,7 +87,7 @@ export const createEvent = async (eventData) => {
 export const registerForEvent = async (eventId, registrationData) => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000));
-  
+
   // In a real implementation, this would add to the database
   console.log('Registering for event:', eventId, registrationData);
   return { success: true };
@@ -110,7 +110,7 @@ export const getProductById = async (id) => {
 export const submitContactForm = async (contactData) => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000));
-  
+
   // In a real implementation, this would add to the database
   console.log('Submitting contact form:', contactData);
   return { success: true };

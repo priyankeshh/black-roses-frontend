@@ -178,7 +178,7 @@ const ContactPage = () => {
                     <Phone className="text-teal-600 mt-1 mr-4" size={20} />
                     <div>
                       <p className="font-medium">Phone</p>
-                      <p className="text-gray-600">+31 6 12345678</p>
+                      <p className="text-gray-600">+32 470 123456</p>
                     </div>
                   </div>
 
@@ -194,7 +194,7 @@ const ContactPage = () => {
 
               <div className="h-64 rounded-lg overflow-hidden shadow-md">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d155959.8008443514!2d4.763878075121092!3d52.3547943869085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c63fb5949a7755%3A0x6600fd4cb7c0af8d!2sAmsterdam!5e0!3m2!1sen!2snl!4v1688371500938!5m2!1sen!2snl"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d80150.69742910728!2d4.3484895!3d51.2211097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3f68ebfc3887d%3A0x3eaf448482a88ab8!2sAntwerp%2C%20Belgium!5e0!3m2!1sen!2sus!4v1688371500938!5m2!1sen!2sus"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

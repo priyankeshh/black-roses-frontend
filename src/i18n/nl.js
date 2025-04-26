@@ -9,7 +9,7 @@ export default {
   },
   home: {
     welcome: 'Welkom bij Black Roses',
-    intro: 'Wij zijn een elite airsoft team gevestigd in Nederland. Ons team richt zich op tactisch spel, teamwerk en sportiviteit.',
+    intro: 'Wij zijn een elite airsoft team gevestigd in België. Ons team richt zich op tactisch spel, teamwerk en sportiviteit.',
     cta: 'Doe mee aan ons volgende evenement',
     latestEvent: 'Laatste Evenement',
     noEvents: 'Geen aankomende evenementen',
@@ -50,7 +50,7 @@ export default {
     joinTitle: 'Word Lid van Ons Team',
     joinText: 'Geïnteresseerd om lid te worden van Black Roses? Stuur ons een bericht en we nemen contact met je op met meer informatie.',
     locationTitle: 'Onze Locatie',
-    location: 'Amsterdam, Nederland'
+    location: 'Antwerpen, België'
   },
   admin: {
     title: 'Beheerderspaneel',
