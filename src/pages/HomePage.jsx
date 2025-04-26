@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
-import { supabase } from '../lib/supabaseClient';
+import { getEvents } from '../lib/dataService';
 
 const HomePage = () => {
   const { t } = useTranslation();
@@ -15,16 +15,12 @@ const HomePage = () => {
     const fetchLatestEvent = async () => {
       try {
         setLoading(true);
-        const { data, error } = await supabase
-          .from('events')
-          .select('*')
-          .order('date', { ascending: true })
-          .limit(1);
-          
-        if (error) throw error;
-        
-        if (data && data.length > 0) {
-          setLatestEvent(data[0]);
+        const events = await getEvents();
+
+        if (events && events.length > 0) {
+          // Sort events by date (ascending) and get the first one
+          const sortedEvents = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
+          setLatestEvent(sortedEvents[0]);
         }
       } catch (error) {
         console.error('Error fetching latest event:', error);
@@ -38,10 +34,10 @@ const HomePage = () => {
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.6,
         ease: "easeOut"
       }
@@ -51,10 +47,10 @@ const HomePage = () => {
   return (
     <>
       <HeroSection />
-      
+
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <motion.div 
+          <motion.div
             className="text-center mb-12"
             initial="hidden"
             whileInView="visible"
@@ -64,27 +60,27 @@ const HomePage = () => {
             <h2 className="text-3xl font-bold mb-2">{t('home.latestEvent')}</h2>
             <div className="w-24 h-1 bg-teal-500 mx-auto"></div>
           </motion.div>
-          
+
           {loading ? (
             <div className="flex justify-center">
               <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : latestEvent ? (
-            <motion.div 
+            <motion.div
               className="max-w-3xl mx-auto bg-gray-100 rounded-lg overflow-hidden shadow-md"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <div 
+              <div
                 className="h-64 bg-cover bg-center"
                 style={{ backgroundImage: "url('https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg')" }}
               ></div>
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-3">{latestEvent.title}</h3>
                 <p className="text-gray-700 mb-4">{latestEvent.description}</p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                   <div className="bg-white p-3 rounded shadow-sm">
                     <p className="text-gray-500 text-sm">{t('events.date')}</p>
@@ -99,9 +95,9 @@ const HomePage = () => {
                     <p className="font-semibold">{latestEvent.location}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex justify-center">
-                  <Link 
+                  <Link
                     to={`/event-signup/${latestEvent.id}`}
                     className="inline-flex items-center px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded transition-colors"
                   >
@@ -112,7 +108,7 @@ const HomePage = () => {
               </div>
             </motion.div>
           ) : (
-            <motion.div 
+            <motion.div
               className="text-center text-gray-600"
               initial="hidden"
               whileInView="visible"
@@ -124,11 +120,11 @@ const HomePage = () => {
           )}
         </div>
       </section>
-      
+
       <section className="py-16 bg-gray-900 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.h2 
+            <motion.h2
               className="text-3xl font-bold mb-6"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -152,8 +148,8 @@ const HomePage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className="inline-block px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded transition-colors"
               >
                 Join Our Team

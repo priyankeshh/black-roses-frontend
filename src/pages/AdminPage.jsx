@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CheckCircle, AlertTriangle } from 'lucide-react';
-import { supabase } from '../lib/supabaseClient';
+import { createEvent } from '../lib/dataService';
 
 const AdminPage = () => {
   const { t } = useTranslation();
-  
+
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState('idle');
-  
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -27,38 +27,38 @@ const AdminPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       setFormSubmitting(true);
-      
-      const { error } = await supabase
-        .from('events')
-        .insert([
-          {
-            title: formData.title,
-            description: formData.description,
-            date: formData.date,
-            time: formData.time,
-            location: formData.location
-          }
-        ]);
-        
-      if (error) throw error;
-      
-      setFormStatus('success');
-      setFormData({
-        title: '',
-        description: '',
-        date: '',
-        time: '',
-        location: ''
-      });
-      
-      // Reset form status after 3 seconds
-      setTimeout(() => {
-        setFormStatus('idle');
-      }, 3000);
-      
+
+      const eventData = {
+        title: formData.title,
+        description: formData.description,
+        date: formData.date,
+        time: formData.time,
+        location: formData.location
+      };
+
+      const result = await createEvent(eventData);
+
+      if (result.success) {
+        setFormStatus('success');
+        setFormData({
+          title: '',
+          description: '',
+          date: '',
+          time: '',
+          location: ''
+        });
+
+        // Reset form status after 3 seconds
+        setTimeout(() => {
+          setFormStatus('idle');
+        }, 3000);
+      } else {
+        throw new Error('Event creation failed');
+      }
+
     } catch (error) {
       console.error('Error creating event:', error);
       setFormStatus('error');
@@ -74,11 +74,11 @@ const AdminPage = () => {
           <h1 className="text-4xl font-bold mb-4">{t('admin.title')}</h1>
           <div className="w-24 h-1 bg-teal-500 mx-auto"></div>
         </div>
-        
+
         <div className="max-w-3xl mx-auto">
           <div className="bg-white rounded-lg shadow-md p-8">
             <h2 className="text-2xl font-bold mb-6">{t('admin.createEvent')}</h2>
-            
+
             {formStatus === 'success' ? (
               <div className="p-4 rounded-lg bg-green-50 border border-green-200 text-green-800 flex items-start mb-6">
                 <CheckCircle className="text-green-500 mr-3 flex-shrink-0 mt-0.5" size={20} />
@@ -90,7 +90,7 @@ const AdminPage = () => {
                 <p>{t('admin.error')}</p>
               </div>
             ) : null}
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="title" className="block text-gray-700 font-medium mb-1">
@@ -106,7 +106,7 @@ const AdminPage = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="description" className="block text-gray-700 font-medium mb-1">
                   {t('admin.eventDescription')} *
@@ -121,7 +121,7 @@ const AdminPage = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 ></textarea>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label htmlFor="date" className="block text-gray-700 font-medium mb-1">
@@ -137,7 +137,7 @@ const AdminPage = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="time" className="block text-gray-700 font-medium mb-1">
                     {t('admin.eventTime')} *
@@ -152,7 +152,7 @@ const AdminPage = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="location" className="block text-gray-700 font-medium mb-1">
                     {t('admin.eventLocation')} *
@@ -168,7 +168,7 @@ const AdminPage = () => {
                   />
                 </div>
               </div>
-              
+
               <button
                 type="submit"
                 disabled={formSubmitting}

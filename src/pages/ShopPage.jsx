@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import ProductCard from '../components/ProductCard';
-import { supabase } from '../lib/supabaseClient';
+import { getProducts } from '../lib/dataService';
 
 const ShopPage = () => {
   const { t } = useTranslation();
@@ -13,12 +13,8 @@ const ShopPage = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const { data, error } = await supabase
-          .from('products')
-          .select('*');
-          
-        if (error) throw error;
-        
+        const data = await getProducts();
+
         if (data) {
           setProducts(data);
         }
@@ -58,13 +54,13 @@ const ShopPage = () => {
           <h1 className="text-4xl font-bold mb-4">{t('shop.title')}</h1>
           <div className="w-24 h-1 bg-teal-500 mx-auto"></div>
         </div>
-        
+
         {loading ? (
           <div className="flex justify-center my-12">
             <div className="w-12 h-12 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : products.length > 0 ? (
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
             variants={container}
             initial="hidden"

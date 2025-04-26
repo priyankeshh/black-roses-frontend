@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
+import { getEventById, registerForEvent } from '../lib/dataService';
 import { CheckCircle, AlertTriangle } from 'lucide-react';
 
 const EventSignupPage = () => {
   const { t } = useTranslation();
   const { eventId } = useParams();
   const navigate = useNavigate();
-  
+
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState('idle');
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,17 +23,11 @@ const EventSignupPage = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       if (!eventId) return;
-      
+
       try {
         setLoading(true);
-        const { data, error } = await supabase
-          .from('events')
-          .select('*')
-          .eq('id', eventId)
-          .single();
-          
-        if (error) throw error;
-        
+        const data = await getEventById(eventId);
+
         if (data) {
           setEvent(data);
         } else {
@@ -60,37 +54,37 @@ const EventSignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!eventId) return;
-    
+
     try {
       setFormSubmitting(true);
-      
-      const { error } = await supabase
-        .from('event_registrations')
-        .insert([
-          {
-            event_id: eventId,
-            name: formData.name,
-            email: formData.email,
-            team_name: formData.teamName
-          }
-        ]);
-        
-      if (error) throw error;
-      
-      setFormStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        teamName: ''
-      });
-      
-      // Redirect to events page after successful registration
-      setTimeout(() => {
-        navigate('/events');
-      }, 3000);
-      
+
+      const registrationData = {
+        event_id: eventId,
+        name: formData.name,
+        email: formData.email,
+        team_name: formData.teamName
+      };
+
+      const result = await registerForEvent(eventId, registrationData);
+
+      if (result.success) {
+        setFormStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          teamName: ''
+        });
+
+        // Redirect to events page after successful registration
+        setTimeout(() => {
+          navigate('/events');
+        }, 3000);
+      } else {
+        throw new Error('Registration failed');
+      }
+
     } catch (error) {
       console.error('Error submitting registration:', error);
       setFormStatus('error');
@@ -112,7 +106,7 @@ const EventSignupPage = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
           <h1 className="text-3xl font-bold mb-6 text-center">{t('eventSignup.title')}</h1>
-          
+
           {event && (
             <div className="mb-8 p-4 bg-gray-100 rounded-lg">
               <h2 className="text-xl font-semibold mb-2">{event.title}</h2>
@@ -133,7 +127,7 @@ const EventSignupPage = () => {
               </div>
             </div>
           )}
-          
+
           {formStatus === 'success' ? (
             <div className="p-4 rounded-lg bg-green-50 border border-green-200 text-green-800 flex items-start">
               <CheckCircle className="text-green-500 mr-3 flex-shrink-0 mt-0.5" size={20} />
@@ -160,7 +154,7 @@ const EventSignupPage = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="email" className="block text-gray-700 font-medium mb-1">
                   {t('eventSignup.email')} *
@@ -175,7 +169,7 @@ const EventSignupPage = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="teamName" className="block text-gray-700 font-medium mb-1">
                   {t('eventSignup.teamName')} *
@@ -190,7 +184,7 @@ const EventSignupPage = () => {
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
-              
+
               <button
                 type="submit"
                 disabled={formSubmitting}
