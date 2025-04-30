@@ -18,7 +18,7 @@ This project is organized with a clear separation between frontend and backend:
 │   │   └── pages/        # Page components
 │   └── ...
 │
-└── server/           # Backend application (to be created)
+└── server/           # Backend Node.js application
     ├── config/       # Configuration files
     ├── controllers/  # Request handlers
     ├── models/       # MongoDB schema models
@@ -31,16 +31,17 @@ This project is organized with a clear separation between frontend and backend:
 
 The frontend is built with:
 
-- **React/Next.js**: For component-based UI development
+- **React**: For component-based UI development with Vite as the build tool
 - **JavaScript**: All code is written in JavaScript (not TypeScript)
 - **Tailwind CSS**: For styling
 - **React Router**: For navigation
 - **i18next**: For internationalization (Dutch and English)
 - **Framer Motion**: For animations
+- **Axios**: For API requests
 
 ## Backend (server)
 
-The backend will be built with:
+The backend is built with:
 
 - **Node.js/Express**: For the API server
 - **MongoDB**: For the database
@@ -50,7 +51,7 @@ The backend will be built with:
 
 ## Data Flow Architecture
 
-The frontend and backend will communicate through a RESTful API:
+The frontend and backend communicate through a RESTful API:
 
 1. **Frontend**: Makes HTTP requests to the backend API endpoints
 2. **Backend**: Processes requests, interacts with the database, and returns responses
@@ -62,14 +63,14 @@ The frontend and backend will communicate through a RESTful API:
 2. Frontend makes API calls to the backend server
 3. Use environment variables to configure API endpoints for different environments
 
-## API Endpoints (Planned)
+## API Endpoints
 
-The backend will expose the following API endpoints:
+The backend exposes the following API endpoints:
 
 - **Authentication**
   - `POST /api/auth/register` - Register a new user
   - `POST /api/auth/login` - Login a user
-  - `GET /api/auth/me` - Get current user info
+  - `GET /api/auth/me` - Get current user info (protected)
 
 - **Events**
   - `GET /api/events` - Get all events
@@ -88,6 +89,7 @@ The backend will expose the following API endpoints:
 
 - **Contact**
   - `POST /api/contact` - Submit a contact form
+  - `GET /api/contact` - Get all contact submissions (admin only)
 
 ## Getting Started
 
@@ -99,10 +101,11 @@ npm install
 npm run dev
 ```
 
-### Backend (when created)
+### Backend
 
 ```bash
 cd server
 npm install
 npm run dev
 ```
+
