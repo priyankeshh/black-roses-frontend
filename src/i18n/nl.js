@@ -5,7 +5,10 @@ export default {
     shop: 'Winkel',
     contact: 'Contact',
     admin: 'Admin',
-    language: 'Taal'
+    language: 'Taal',
+    login: 'Inloggen',
+    register: 'Registreren',
+    logout: 'Uitloggen'
   },
   home: {
     welcome: 'Welkom bij Black Roses',
@@ -22,7 +25,16 @@ export default {
     time: 'Tijd',
     location: 'Locatie',
     signup: 'Aanmelden',
-    details: 'Evenement Details'
+    details: 'Evenement Details',
+    participants: 'Deelnemers',
+    full: 'Evenement Vol',
+    fetchError: 'Kan evenementen niet laden. Probeer het opnieuw.',
+    status: {
+      upcoming: 'Aankomend',
+      ongoing: 'Bezig',
+      completed: 'Afgerond',
+      cancelled: 'Geannuleerd'
+    }
   },
   eventSignup: {
     title: 'Aanmelden voor Evenement',
@@ -68,5 +80,36 @@ export default {
   footer: {
     rights: 'Alle rechten voorbehouden',
     follow: 'Volg ons'
+  },
+  login: {
+    title: 'Inloggen',
+    email: 'E-mailadres',
+    password: 'Wachtwoord',
+    loginButton: 'Inloggen',
+    loggingIn: 'Inloggen...',
+    noAccount: 'Nog geen account?',
+    registerLink: 'Registreer hier',
+    genericError: 'Inloggen mislukt. Controleer je gegevens en probeer het opnieuw.'
+  },
+  register: {
+    title: 'Registreren',
+    name: 'Volledige Naam',
+    email: 'E-mailadres',
+    password: 'Wachtwoord',
+    confirmPassword: 'Bevestig Wachtwoord',
+    registerButton: 'Registreren',
+    registering: 'Registreren...',
+    haveAccount: 'Heb je al een account?',
+    loginLink: 'Log hier in',
+    passwordsDoNotMatch: 'Wachtwoorden komen niet overeen',
+    genericError: 'Registratie mislukt. Probeer het opnieuw.'
+  },
+  notFound: {
+    title: 'Pagina Niet Gevonden',
+    message: 'De pagina die je zoekt bestaat niet of is verplaatst.',
+    backHome: 'Terug naar Home'
+  },
+  common: {
+    retry: 'Probeer Opnieuw'
   }
 };

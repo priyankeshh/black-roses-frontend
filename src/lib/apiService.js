@@ -7,11 +7,21 @@ const API_URL = 'http://localhost:5000/api';
 // Helper function to handle API responses
 const handleResponse = async (response) => {
   const data = await response.json();
-  
+
   if (!response.ok) {
+    // Check if token is expired
+    if (response.status === 401 && data.isExpired) {
+      // Try to refresh token
+      const refreshed = await refreshToken();
+      if (refreshed) {
+        // Retry the original request
+        return await retryRequest(response.url, response.method, response.body);
+      }
+    }
+
     throw new Error(data.error || 'Something went wrong');
   }
-  
+
   return data;
 };
 
@@ -20,10 +30,62 @@ const getToken = () => {
   return localStorage.getItem('token');
 };
 
+// Get refresh token from local storage
+const getRefreshToken = () => {
+  return localStorage.getItem('refreshToken');
+};
+
 // Set auth headers
 const authHeader = () => {
   const token = getToken();
   return token ? { 'Authorization': `Bearer ${token}` } : {};
+};
+
+// Refresh token function
+const refreshToken = async () => {
+  const refreshToken = getRefreshToken();
+
+  if (!refreshToken) {
+    logout();
+    return false;
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/auth/refresh-token`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ refreshToken })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      logout();
+      return false;
+    }
+
+    localStorage.setItem('token', data.token);
+    return true;
+  } catch (error) {
+    logout();
+    return false;
+  }
+};
+
+// Retry a request with fresh token
+const retryRequest = async (url, method, body) => {
+  const response = await fetch(url, {
+    method: method || 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      ...authHeader()
+    },
+    body: body
+  });
+
+  return handleResponse(response);
 };
 
 // Event functions
@@ -48,7 +110,7 @@ export const createEvent = async (eventData) => {
     },
     body: JSON.stringify(eventData)
   });
-  
+
   const data = await handleResponse(response);
   return { success: true, data: data.data };
 };
@@ -61,7 +123,7 @@ export const registerForEvent = async (eventId, registrationData) => {
     },
     body: JSON.stringify(registrationData)
   });
-  
+
   const data = await handleResponse(response);
   return { success: true, data: data.data };
 };
@@ -88,7 +150,7 @@ export const submitContactForm = async (contactData) => {
     },
     body: JSON.stringify(contactData)
   });
-  
+
   const data = await handleResponse(response);
   return { success: true, data: data.data };
 };
@@ -102,14 +164,18 @@ export const registerUser = async (userData) => {
     },
     body: JSON.stringify(userData)
   });
-  
+
   const data = await handleResponse(response);
-  
+
   if (data.token) {
     localStorage.setItem('token', data.token);
   }
-  
-  return { success: true, token: data.token };
+
+  if (data.refreshToken) {
+    localStorage.setItem('refreshToken', data.refreshToken);
+  }
+
+  return { success: true, token: data.token, refreshToken: data.refreshToken };
 };
 
 export const loginUser = async (credentials) => {
@@ -120,25 +186,128 @@ export const loginUser = async (credentials) => {
     },
     body: JSON.stringify(credentials)
   });
-  
+
   const data = await handleResponse(response);
-  
+
   if (data.token) {
     localStorage.setItem('token', data.token);
   }
-  
-  return { success: true, token: data.token };
+
+  if (data.refreshToken) {
+    localStorage.setItem('refreshToken', data.refreshToken);
+  }
+
+  return { success: true, token: data.token, refreshToken: data.refreshToken };
 };
 
 export const getCurrentUser = async () => {
   const response = await fetch(`${API_URL}/auth/me`, {
     headers: authHeader()
   });
-  
+
   const data = await handleResponse(response);
   return data.data;
 };
 
 export const logout = () => {
   localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
+};
+
+// User events
+export const getUserEvents = async () => {
+  const response = await fetch(`${API_URL}/events/my-events`, {
+    headers: authHeader()
+  });
+
+  const data = await handleResponse(response);
+  return data.data;
+};
+
+// Admin functions
+export const getUsers = async () => {
+  const response = await fetch(`${API_URL}/admin/users`, {
+    headers: authHeader()
+  });
+
+  const data = await handleResponse(response);
+  return data.data;
+};
+
+export const createAdminUser = async (userData) => {
+  const response = await fetch(`${API_URL}/admin/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...authHeader()
+    },
+    body: JSON.stringify(userData)
+  });
+
+  const data = await handleResponse(response);
+  return data.data;
+};
+
+export const updateUserRole = async (userId, role) => {
+  const response = await fetch(`${API_URL}/admin/users/${userId}/role`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      ...authHeader()
+    },
+    body: JSON.stringify({ role })
+  });
+
+  const data = await handleResponse(response);
+  return data.data;
+};
+
+export const deleteUser = async (userId) => {
+  const response = await fetch(`${API_URL}/admin/users/${userId}`, {
+    method: 'DELETE',
+    headers: authHeader()
+  });
+
+  const data = await handleResponse(response);
+  return data;
+};
+
+// Update event functions
+export const updateEvent = async (eventId, eventData) => {
+  const response = await fetch(`${API_URL}/events/${eventId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      ...authHeader()
+    },
+    body: JSON.stringify(eventData)
+  });
+
+  const data = await handleResponse(response);
+  return data.data;
+};
+
+export const deleteEvent = async (eventId) => {
+  const response = await fetch(`${API_URL}/events/${eventId}`, {
+    method: 'DELETE',
+    headers: authHeader()
+  });
+
+  const data = await handleResponse(response);
+  return data;
+};
+
+// File upload functions
+export const uploadImage = async (file, type = 'event') => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const response = await fetch(`${API_URL}/upload/${type}`, {
+    method: 'POST',
+    headers: authHeader(),
+    body: formData
+  });
+
+  const data = await handleResponse(response);
+  return data.data;
 };

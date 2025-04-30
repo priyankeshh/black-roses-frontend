@@ -5,7 +5,10 @@ export default {
     shop: 'Shop',
     contact: 'Contact',
     admin: 'Admin',
-    language: 'Language'
+    language: 'Language',
+    login: 'Login',
+    register: 'Register',
+    logout: 'Logout'
   },
   home: {
     welcome: 'Welcome to Black Roses',
@@ -22,7 +25,16 @@ export default {
     time: 'Time',
     location: 'Location',
     signup: 'Sign Up',
-    details: 'Event Details'
+    details: 'Event Details',
+    participants: 'Participants',
+    full: 'Event Full',
+    fetchError: 'Failed to load events. Please try again.',
+    status: {
+      upcoming: 'Upcoming',
+      ongoing: 'Ongoing',
+      completed: 'Completed',
+      cancelled: 'Cancelled'
+    }
   },
   eventSignup: {
     title: 'Sign Up for Event',
@@ -68,5 +80,36 @@ export default {
   footer: {
     rights: 'All rights reserved',
     follow: 'Follow us'
+  },
+  login: {
+    title: 'Login',
+    email: 'Email Address',
+    password: 'Password',
+    loginButton: 'Login',
+    loggingIn: 'Logging in...',
+    noAccount: 'Don\'t have an account?',
+    registerLink: 'Register here',
+    genericError: 'Login failed. Please check your credentials and try again.'
+  },
+  register: {
+    title: 'Register',
+    name: 'Full Name',
+    email: 'Email Address',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    registerButton: 'Register',
+    registering: 'Registering...',
+    haveAccount: 'Already have an account?',
+    loginLink: 'Login here',
+    passwordsDoNotMatch: 'Passwords do not match',
+    genericError: 'Registration failed. Please try again.'
+  },
+  notFound: {
+    title: 'Page Not Found',
+    message: 'The page you are looking for does not exist or has been moved.',
+    backHome: 'Back to Home'
+  },
+  common: {
+    retry: 'Try Again'
   }
 };
