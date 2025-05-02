@@ -26,11 +26,11 @@ const EventDetailPage = () => {
         if (data) {
           setEvent(data);
         } else {
-          navigate('/events');
+          navigate('/');
         }
       } catch (error) {
         console.error('Error fetching event:', error);
-        navigate('/events');
+        navigate('/');
       } finally {
         setLoading(false);
       }
@@ -65,7 +65,7 @@ const EventDetailPage = () => {
       <div className="pt-24 pb-16 min-h-screen bg-gray-100">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold mb-4">{t('events.notFound')}</h1>
-          <Link to="/events" className="text-teal-600 hover:text-teal-700">
+          <Link to="/" className="text-teal-600 hover:text-teal-700">
             {t('events.backToEvents')}
           </Link>
         </div>
@@ -79,7 +79,7 @@ const EventDetailPage = () => {
         <div className="max-w-4xl mx-auto">
           {/* Event Header */}
           <div className="mb-8">
-            <Link to="/events" className="text-teal-600 hover:text-teal-700 mb-4 inline-block">
+            <Link to="/" className="text-teal-600 hover:text-teal-700 mb-4 inline-block">
               &larr; {t('events.backToEvents')}
             </Link>
             <h1 className="text-3xl md:text-4xl font-bold mb-2">{event.title}</h1>

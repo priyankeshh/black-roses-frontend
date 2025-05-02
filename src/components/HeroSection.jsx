@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 import { cn } from '../lib/utils';
 import logoImage from '../assets/logo.png';
@@ -56,8 +55,8 @@ const HeroSection = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.8 }}
             >
-              <Link
-                to="/events"
+              <a
+                href="#events"
                 className={cn(
                   "inline-flex items-center px-6 py-3 bg-primary hover:bg-primary-dark",
                   "text-white font-oswald rounded-md transition-colors duration-300"
@@ -65,7 +64,7 @@ const HeroSection = () => {
               >
                 {t('home.cta')}
                 <ChevronRight size={20} className="ml-2" />
-              </Link>
+              </a>
             </motion.div>
           </motion.div>
 

@@ -55,16 +55,6 @@ const Header = () => {
             {t('navigation.home')}
           </Link>
           <Link
-            to="/events"
-            className={cn(
-              "hover:text-primary transition-colors",
-              isActive('/events') && "text-primary"
-            )}
-          >
-            {t('navigation.events')}
-          </Link>
-
-          <Link
             to="/contact"
             className={cn(
               "hover:text-primary transition-colors",
@@ -152,17 +142,6 @@ const Header = () => {
             >
               {t('navigation.home')}
             </Link>
-            <Link
-              to="/events"
-              className={cn(
-                "py-2",
-                isActive('/events') && "text-primary"
-              )}
-              onClick={toggleMenu}
-            >
-              {t('navigation.events')}
-            </Link>
-
             <Link
               to="/contact"
               className={cn(
