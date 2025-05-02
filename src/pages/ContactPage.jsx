@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, CheckCircle, AlertTriangle } from 'lucide-react';
-import { submitContactForm } from '../lib/dataService';
+import { submitContactForm } from '../lib/apiService';
 
 const ContactPage = () => {
   const { t } = useTranslation();

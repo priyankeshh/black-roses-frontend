@@ -315,15 +315,28 @@ export const deleteEvent = async (eventId) => {
 
 // File upload functions
 export const uploadImage = async (file, type = 'event') => {
-  const formData = new FormData();
-  formData.append('image', file);
+  try {
+    console.log(`Uploading ${type} image:`, file.name);
 
-  const response = await fetch(`${API_URL}/upload/${type}`, {
-    method: 'POST',
-    headers: authHeader(),
-    body: formData
-  });
+    const formData = new FormData();
+    formData.append('image', file);
 
-  const data = await handleResponse(response);
-  return data.data;
+    const response = await fetch(`${API_URL}/upload/${type}`, {
+      method: 'POST',
+      headers: {
+        ...authHeader(),
+        // Don't set Content-Type here, it will be set automatically with the boundary
+      },
+      body: formData
+    });
+
+    const data = await handleResponse(response);
+    console.log('Upload response:', data);
+    return data.data;
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  }
 };
+
+

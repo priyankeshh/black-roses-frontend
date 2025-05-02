@@ -14,8 +14,13 @@ const AdminPage = () => {
     description: '',
     date: '',
     time: '',
-    location: ''
+    location: '',
+    imageUrl: ''
   });
+
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -25,11 +30,50 @@ const AdminPage = () => {
     });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+
+      // Create a preview URL
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
+    }
+  };
+
+  const handleImageUpload = async () => {
+    if (!imageFile) return null;
+
+    try {
+      setUploadingImage(true);
+      const imageData = await uploadImage(imageFile, 'event');
+      setFormData({
+        ...formData,
+        imageUrl: imageData.url
+      });
+      return imageData.url;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      return null;
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       setFormSubmitting(true);
+
+      // Upload image first if there's one selected
+      let imageUrl = formData.imageUrl;
+      if (imageFile) {
+        imageUrl = await handleImageUpload();
+        if (!imageUrl) {
+          throw new Error('Image upload failed');
+        }
+      }
 
       // Ensure we're using the correct field names expected by the backend
       const eventData = {
@@ -37,7 +81,8 @@ const AdminPage = () => {
         description: formData.description,
         eventDate: formData.date, // Map to eventDate as expected by the backend
         time: formData.time,
-        location: formData.location
+        location: formData.location,
+        imageUrl: imageUrl
       };
 
       console.log('Submitting event data:', eventData);
@@ -50,8 +95,13 @@ const AdminPage = () => {
           description: '',
           date: '',
           time: '',
-          location: ''
+          location: '',
+          imageUrl: ''
         });
+
+        // Reset image states
+        setImageFile(null);
+        setImagePreview('');
 
         // Reset form status after 3 seconds
         setTimeout(() => {
@@ -169,6 +219,42 @@ const AdminPage = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label htmlFor="image" className="block text-gray-700 font-medium mb-1">
+                  {t('admin.eventImage')}
+                </label>
+                <div className="mt-1 flex items-center">
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor="image"
+                    className="cursor-pointer px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-md flex items-center transition-colors"
+                  >
+                    <Upload size={18} className="mr-2" />
+                    {t('admin.uploadImage')}
+                  </label>
+                  {uploadingImage && (
+                    <div className="ml-3">
+                      <div className="w-5 h-5 border-2 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                  )}
+                </div>
+
+                {imagePreview && (
+                  <div className="mt-3">
+                    <div className="relative w-40 h-40 rounded-md overflow-hidden border border-gray-300">
+                      <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                    </div>
+                  </div>
+                )}
               </div>
 
               <button

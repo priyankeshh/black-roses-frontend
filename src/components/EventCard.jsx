@@ -26,7 +26,7 @@ const EventCard = ({ event }) => {
     )}>
       <div
         className="h-48 bg-cover bg-center relative"
-        style={{ backgroundImage: "url('https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg')" }}
+        style={{ backgroundImage: `url('${event.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')` }}
       >
         {event.status && (
           <div className={cn(

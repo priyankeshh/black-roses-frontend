@@ -11,12 +11,26 @@ body {
   .btn {
     @apply px-4 py-2 font-semibold rounded transition-colors duration-200;
   }
-  
+
   .btn-primary {
     @apply bg-teal-500 text-white hover:bg-teal-600;
   }
-  
+
   .btn-secondary {
     @apply bg-black text-white hover:bg-gray-800;
   }
+}
+
+/* Fix for form inputs */
+input, textarea, select {
+  @apply text-gray-900;
+}
+
+/* Dark mode inputs */
+.bg-dark input, .bg-dark textarea, .bg-dark select,
+.bg-dark-100 input, .bg-dark-100 textarea, .bg-dark-100 select,
+.bg-dark-200 input, .bg-dark-200 textarea, .bg-dark-200 select,
+.bg-dark-300 input, .bg-dark-300 textarea, .bg-dark-300 select {
+  @apply text-white border-dark-200;
+  background-color: #313131; /* This is the same as bg-dark-100 */
 }

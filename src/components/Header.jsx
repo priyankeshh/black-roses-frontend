@@ -63,15 +63,7 @@ const Header = () => {
           >
             {t('navigation.events')}
           </Link>
-          <Link
-            to="/shop"
-            className={cn(
-              "hover:text-primary transition-colors",
-              isActive('/shop') && "text-primary"
-            )}
-          >
-            {t('navigation.shop')}
-          </Link>
+
           <Link
             to="/contact"
             className={cn(
@@ -170,16 +162,7 @@ const Header = () => {
             >
               {t('navigation.events')}
             </Link>
-            <Link
-              to="/shop"
-              className={cn(
-                "py-2",
-                isActive('/shop') && "text-primary"
-              )}
-              onClick={toggleMenu}
-            >
-              {t('navigation.shop')}
-            </Link>
+
             <Link
               to="/contact"
               className={cn(
