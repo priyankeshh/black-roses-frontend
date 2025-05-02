@@ -24,13 +24,27 @@ const HeroSection = () => {
 
       {/* Content */}
       <div className="relative container mx-auto px-4 z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          {/* Left side - Text content */}
+        <div className="flex flex-col items-center justify-center text-center">
+          {/* Logo on top */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="md:w-1/2 text-center md:text-left mb-8 md:mb-0"
+            className="mb-8"
+          >
+            <img
+              src={logoImage}
+              alt="Black Roses Logo"
+              className="w-48 h-48 md:w-64 md:h-64"
+            />
+          </motion.div>
+
+          {/* Text content below */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-center"
           >
             <motion.h1
               className="text-4xl md:text-6xl font-oswald mb-4"
@@ -42,12 +56,12 @@ const HeroSection = () => {
             </motion.h1>
 
             <motion.p
-              className="text-lg md:text-xl max-w-2xl mx-auto md:mx-0 mb-8 text-gray-200"
+              className="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-gray-200"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
             >
-              {t('home.intro')}
+              We are an elite airsoft team based in the Belgium. Our team focuses on tactical gameplay, teamwork, and sportsmanship.
             </motion.p>
 
             <motion.div
@@ -66,20 +80,6 @@ const HeroSection = () => {
                 <ChevronRight size={20} className="ml-2" />
               </a>
             </motion.div>
-          </motion.div>
-
-          {/* Right side - Logo */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="md:w-1/2 flex justify-center md:justify-end"
-          >
-            <img
-              src={logoImage}
-              alt="Black Roses Logo"
-              className="w-48 h-48 md:w-64 md:h-64"
-            />
           </motion.div>
         </div>
       </div>

@@ -22,7 +22,7 @@ const AlternatingEventCard = ({ event, index }) => {
   };
 
   return (
-    <div 
+    <div
       className={cn(
         "mb-12 rounded-lg overflow-hidden border border-dark-200 bg-dark-100 shadow-md",
         "transition-all duration-300 hover:shadow-lg",
@@ -31,7 +31,7 @@ const AlternatingEventCard = ({ event, index }) => {
     >
       <div className="flex flex-col md:flex-row">
         {/* Image Section - Left on odd indexes, Right on even indexes */}
-        <div 
+        <div
           className={cn(
             "md:w-1/2 h-64 bg-cover bg-center relative",
             isEven ? "md:order-2" : "md:order-1"
@@ -52,7 +52,7 @@ const AlternatingEventCard = ({ event, index }) => {
         </div>
 
         {/* Content Section - Right on odd indexes, Left on even indexes */}
-        <div 
+        <div
           className={cn(
             "md:w-1/2 p-6",
             isEven ? "md:order-1" : "md:order-2"
@@ -74,14 +74,26 @@ const AlternatingEventCard = ({ event, index }) => {
               <MapPin size={18} className="mr-2 text-primary" />
               <span>{event.location}</span>
             </div>
-            {event.maxParticipants && (
-              <div className="flex items-center text-gray-300">
-                <Users size={18} className="mr-2 text-primary" />
-                <span>
-                  {event.registrations ? event.registrations.length : 0} / {event.maxParticipants} {t('events.participants')}
-                </span>
-              </div>
-            )}
+            {/* Always show registration count, with or without max participants */}
+            <div className="flex items-center text-gray-300">
+              <Users size={18} className="mr-2 text-primary" />
+              <span>
+                {event.registrations ? event.registrations.length : 0}
+                {event.maxParticipants ? ` / ${event.maxParticipants}` : ''} {t('events.participants')}
+              </span>
+            </div>
+
+            {/* Registration badge */}
+            <div className="mt-2">
+              <span className={cn(
+                "inline-block px-3 py-1 rounded-full text-xs font-bold",
+                isEventFull() ? "bg-red-500 text-white" : "bg-green-500 text-white"
+              )}>
+                {isEventFull()
+                  ? t('events.registrationsFull')
+                  : `${event.registrations ? event.registrations.length : 0} ${t('events.registrationsCount')}`}
+              </span>
+            </div>
           </div>
 
           <div className="flex justify-between">

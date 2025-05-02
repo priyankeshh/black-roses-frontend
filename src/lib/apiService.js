@@ -311,6 +311,21 @@ export const updateEvent = async (eventId, eventData) => {
   return data.data;
 };
 
+// Update registration status
+export const updateRegistrationStatus = async (eventId, registrationId, status) => {
+  const response = await fetch(`${API_URL}/events/${eventId}/registrations/${registrationId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      ...authHeader()
+    },
+    body: JSON.stringify({ status })
+  });
+
+  const data = await handleResponse(response);
+  return data.data;
+};
+
 export const deleteEvent = async (eventId) => {
   const response = await fetch(`${API_URL}/events/${eventId}`, {
     method: 'DELETE',
