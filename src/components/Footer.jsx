@@ -18,7 +18,7 @@ const Footer = () => {
               <img src={logoImage} alt="Black Roses Logo" className="h-16 w-16 mb-4" />
               <h3 className="text-xl font-oswald mb-2">Black Roses</h3>
               <p className="text-gray-400 text-sm">
-                An elite airsoft team based in the Netherlands.
+                An elite airsoft team based in the Belgium.
               </p>
             </div>
           </div>

@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import EventsPage from './pages/EventsPage';
+import EventDetailPage from './pages/EventDetailPage';
 import EventSignupPage from './pages/EventSignupPage';
 import ContactPage from './pages/ContactPage';
 import AdminPage from './pages/AdminPage';
@@ -26,6 +27,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/events" element={<EventsPage />} />
+                <Route path="/events/:eventId" element={<EventDetailPage />} />
                 <Route path="/event-signup/:eventId" element={<EventSignupPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/login" element={<LoginPage />} />

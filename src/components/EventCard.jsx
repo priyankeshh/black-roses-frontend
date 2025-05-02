@@ -69,13 +69,13 @@ const EventCard = ({ event }) => {
 
         <div className="flex justify-between">
           <Link
-            to={`/events/${event._id}`}
+            to={`/events/${event._id}-${event.title.toLowerCase().replace(/\s+/g, '-')}`}
             className="text-primary hover:text-primary-light font-medium transition-colors"
           >
             {t('events.details')}
           </Link>
           <Link
-            to={`/event-signup/${event._id}`}
+            to={`/event-signup/${event._id}-${event.title.toLowerCase().replace(/\s+/g, '-')}`}
             className={cn(
               "px-4 py-2 text-white font-medium rounded transition-colors",
               isEventFull()

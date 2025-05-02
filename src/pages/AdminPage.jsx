@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle, AlertTriangle } from 'lucide-react';
-import { createEvent as createEventAPI } from '../lib/apiService';
+import { CheckCircle, AlertTriangle, Upload } from 'lucide-react';
+import { createEvent as createEventAPI, uploadImage } from '../lib/apiService';
 
 const AdminPage = () => {
   const { t } = useTranslation();

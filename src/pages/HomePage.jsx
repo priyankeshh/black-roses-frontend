@@ -222,7 +222,7 @@ const HomePage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Join one of the most elite airsoft teams in the Netherlands. We focus on tactical gameplay, teamwork, and sportsmanship.
+              Join one of the most elite airsoft teams in the Belgium. We focus on tactical gameplay, teamwork, and sportsmanship.
             </motion.p>
             <motion.div
               initial={{ opacity: 0 }}

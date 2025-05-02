@@ -9,6 +9,9 @@ const EventSignupPage = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
 
+  // Extract the actual event ID from the URL parameter (which might include the title)
+  const actualEventId = eventId.split('-')[0];
+
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formSubmitting, setFormSubmitting] = useState(false);
@@ -22,11 +25,11 @@ const EventSignupPage = () => {
 
   useEffect(() => {
     const fetchEvent = async () => {
-      if (!eventId) return;
+      if (!actualEventId) return;
 
       try {
         setLoading(true);
-        const data = await getEventById(eventId);
+        const data = await getEventById(actualEventId);
 
         if (data) {
           setEvent(data);
@@ -42,7 +45,7 @@ const EventSignupPage = () => {
     };
 
     fetchEvent();
-  }, [eventId, navigate]);
+  }, [actualEventId, navigate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,19 +58,18 @@ const EventSignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!eventId) return;
+    if (!actualEventId) return;
 
     try {
       setFormSubmitting(true);
 
       const registrationData = {
-        event_id: eventId,
         name: formData.name,
         email: formData.email,
-        team_name: formData.teamName
+        teamName: formData.teamName
       };
 
-      const result = await registerForEvent(eventId, registrationData);
+      const result = await registerForEvent(actualEventId, registrationData);
 
       if (result.success) {
         setFormStatus('success');
@@ -114,7 +116,7 @@ const EventSignupPage = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">{t('events.date')}</p>
-                  <p className="font-medium">{event.date}</p>
+                  <p className="font-medium">{new Date(event.eventDate).toLocaleDateString()}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">{t('events.time')}</p>

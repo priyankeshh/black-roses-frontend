@@ -34,3 +34,32 @@ input, textarea, select {
   @apply text-white border-dark-200;
   background-color: #313131; /* This is the same as bg-dark-100 */
 }
+
+/* Fix for text colors */
+h1, h2, h3, h4, h5, h6, p, span, div, a, button, li {
+  @apply text-gray-900;
+}
+
+/* Dark backgrounds should have light text */
+.bg-dark *, .bg-dark-100 *, .bg-dark-200 *, .bg-dark-300 *,
+.bg-gray-800 *, .bg-gray-900 *,
+.bg-teal-600 *, .bg-teal-700 *,
+.bg-black * {
+  @apply text-white;
+}
+
+/* Ensure section headings are visible */
+section h1, section h2, section h3 {
+  @apply text-gray-900;
+}
+
+/* Dark sections should have light text */
+section.bg-dark h1, section.bg-dark h2, section.bg-dark h3,
+section.bg-dark-100 h1, section.bg-dark-100 h2, section.bg-dark-100 h3,
+section.bg-dark-200 h1, section.bg-dark-200 h2, section.bg-dark-200 h3,
+section.bg-dark-300 h1, section.bg-dark-300 h2, section.bg-dark-300 h3,
+section.bg-gray-800 h1, section.bg-gray-800 h2, section.bg-gray-800 h3,
+section.bg-gray-900 h1, section.bg-gray-900 h2, section.bg-gray-900 h3,
+section.bg-black h1, section.bg-black h2, section.bg-black h3 {
+  @apply text-white;
+}

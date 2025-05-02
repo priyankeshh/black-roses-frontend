@@ -132,16 +132,24 @@ export const createEvent = async (eventData) => {
 };
 
 export const registerForEvent = async (eventId, registrationData) => {
-  const response = await fetch(`${API_URL}/events/${eventId}/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(registrationData)
-  });
+  try {
+    console.log('Registering for event:', eventId, 'with data:', registrationData);
 
-  const data = await handleResponse(response);
-  return { success: true, data: data.data };
+    const response = await fetch(`${API_URL}/events/${eventId}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(registrationData)
+    });
+
+    const data = await handleResponse(response);
+    console.log('Registration response:', data);
+    return { success: true, data: data.data };
+  } catch (error) {
+    console.error('Error registering for event:', error);
+    throw error;
+  }
 };
 
 // Product functions
