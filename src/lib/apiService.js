@@ -6,23 +6,31 @@ const API_URL = 'http://localhost:5000/api';
 
 // Helper function to handle API responses
 const handleResponse = async (response) => {
-  const data = await response.json();
+  try {
+    const data = await response.json();
+    console.log(`API Response [${response.status}]:`, data);
 
-  if (!response.ok) {
-    // Check if token is expired
-    if (response.status === 401 && data.isExpired) {
-      // Try to refresh token
-      const refreshed = await refreshToken();
-      if (refreshed) {
-        // Retry the original request
-        return await retryRequest(response.url, response.method, response.body);
+    if (!response.ok) {
+      // Check if token is expired
+      if (response.status === 401 && data.isExpired) {
+        // Try to refresh token
+        const refreshed = await refreshToken();
+        if (refreshed) {
+          // Retry the original request
+          return await retryRequest(response.url, response.method, response.body);
+        }
       }
+
+      const errorMessage = data.error || 'Something went wrong';
+      console.error(`API Error [${response.status}]:`, errorMessage);
+      throw new Error(errorMessage);
     }
 
-    throw new Error(data.error || 'Something went wrong');
+    return data;
+  } catch (error) {
+    console.error('Error parsing API response:', error);
+    throw new Error('Failed to process server response');
   }
-
-  return data;
 };
 
 // Get auth token from local storage
@@ -102,17 +110,25 @@ export const getEventById = async (id) => {
 };
 
 export const createEvent = async (eventData) => {
-  const response = await fetch(`${API_URL}/events`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...authHeader()
-    },
-    body: JSON.stringify(eventData)
-  });
+  try {
+    console.log('API Service - Creating event with data:', eventData);
 
-  const data = await handleResponse(response);
-  return { success: true, data: data.data };
+    const response = await fetch(`${API_URL}/events`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...authHeader()
+      },
+      body: JSON.stringify(eventData)
+    });
+
+    const data = await handleResponse(response);
+    console.log('API Service - Event creation response:', data);
+    return { success: true, data: data.data };
+  } catch (error) {
+    console.error('API Service - Error creating event:', error);
+    throw error;
+  }
 };
 
 export const registerForEvent = async (eventId, registrationData) => {

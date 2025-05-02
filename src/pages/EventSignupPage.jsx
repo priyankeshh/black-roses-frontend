@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getEventById, registerForEvent } from '../lib/dataService';
+import { getEventById, registerForEvent } from '../lib/apiService';
 import { CheckCircle, AlertTriangle } from 'lucide-react';
 
 const EventSignupPage = () => {

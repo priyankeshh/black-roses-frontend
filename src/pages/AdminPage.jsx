@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CheckCircle, AlertTriangle } from 'lucide-react';
-import { createEvent } from '../lib/dataService';
+import { createEvent as createEventAPI } from '../lib/apiService';
 
 const AdminPage = () => {
   const { t } = useTranslation();
@@ -31,15 +31,17 @@ const AdminPage = () => {
     try {
       setFormSubmitting(true);
 
+      // Ensure we're using the correct field names expected by the backend
       const eventData = {
         title: formData.title,
         description: formData.description,
-        date: formData.date,
+        eventDate: formData.date, // Map to eventDate as expected by the backend
         time: formData.time,
         location: formData.location
       };
 
-      const result = await createEvent(eventData);
+      console.log('Submitting event data:', eventData);
+      const result = await createEventAPI(eventData);
 
       if (result.success) {
         setFormStatus('success');
