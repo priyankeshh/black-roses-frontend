@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const RegisterPage = () => {
@@ -17,6 +18,8 @@ const RegisterPage = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,13 +64,13 @@ const RegisterPage = () => {
         className="bg-white p-8 rounded-lg shadow-md w-full max-w-md"
       >
         <h1 className="text-3xl font-bold mb-6 text-center">{t('register.title')}</h1>
-        
+
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
           </div>
         )}
-        
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
@@ -83,7 +86,7 @@ const RegisterPage = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
-          
+
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
               {t('register.email')}
@@ -98,39 +101,65 @@ const RegisterPage = () => {
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
-          
+
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
               {t('register.password')}
             </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              minLength={6}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                minLength={6}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff size={20} className="text-gray-500" />
+                ) : (
+                  <Eye size={20} className="text-gray-500" />
+                )}
+              </button>
+            </div>
           </div>
-          
+
           <div className="mb-6">
             <label htmlFor="confirmPassword" className="block text-gray-700 font-medium mb-2">
               {t('register.confirmPassword')}
             </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-              minLength={6}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-            />
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+                minLength={6}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? (
+                  <EyeOff size={20} className="text-gray-500" />
+                ) : (
+                  <Eye size={20} className="text-gray-500" />
+                )}
+              </button>
+            </div>
           </div>
-          
+
           <button
             type="submit"
             disabled={loading}
@@ -149,7 +178,7 @@ const RegisterPage = () => {
             )}
           </button>
         </form>
-        
+
         <div className="mt-6 text-center">
           <p className="text-gray-600">
             {t('register.haveAccount')} <Link to="/login" className="text-teal-600 hover:text-teal-800">{t('register.loginLink')}</Link>

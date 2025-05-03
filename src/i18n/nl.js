@@ -45,8 +45,13 @@ export default {
   eventSignup: {
     title: 'Aanmelden voor Evenement',
     name: 'Volledige Naam',
+    age: 'Leeftijd',
     email: 'E-mailadres',
-    teamName: 'Teamnaam',
+    phone: 'Telefoonnummer',
+    gear: 'Uitrustingstype',
+    ownGear: 'Eigen Uitrusting',
+    rentalGear: 'Huuruitrusting',
+    wantsFood: 'Ik wil eten',
     submit: 'Registratie Indienen',
     success: 'Registratie succesvol! We kijken ernaar uit je op het evenement te zien.',
     error: 'Er is een fout opgetreden bij je registratie. Probeer het opnieuw.'

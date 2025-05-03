@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle, AlertTriangle, Upload, Plus, List } from 'lucide-react';
+import { CheckCircle, AlertTriangle, Upload, Plus, List, Users } from 'lucide-react';
 import { createEvent as createEventAPI, uploadImage } from '../lib/apiService';
 import AdminEventManager from '../components/AdminEventManager';
+import AdminManagementPage from './AdminManagementPage';
+import { useAuth } from '../context/AuthContext';
 
 const AdminPage = () => {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState('manage'); // 'create' or 'manage'
+  const { isSuperAdmin } = useAuth();
+  const [activeTab, setActiveTab] = useState('manage'); // 'create', 'manage', or 'users'
 
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState('idle');
@@ -157,12 +160,29 @@ const AdminPage = () => {
               <Plus size={18} className="inline-block mr-2" />
               {t('admin.createEvent')}
             </button>
+            {isSuperAdmin() && (
+              <button
+                className={`py-3 px-6 font-medium text-sm focus:outline-none ${
+                  activeTab === 'users'
+                    ? 'border-b-2 border-primary text-primary'
+                    : 'text-gray-500 hover:text-gray-700'
+                }`}
+                onClick={() => setActiveTab('users')}
+              >
+                <Users size={18} className="inline-block mr-2" />
+                {t('admin.manageUsers')}
+              </button>
+            )}
           </div>
         </div>
 
         {activeTab === 'manage' ? (
           <div className="max-w-5xl mx-auto">
             <AdminEventManager />
+          </div>
+        ) : activeTab === 'users' ? (
+          <div className="max-w-5xl mx-auto">
+            <AdminManagementPage />
           </div>
         ) : (
           <div className="max-w-3xl mx-auto">

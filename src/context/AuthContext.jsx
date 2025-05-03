@@ -66,7 +66,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isAdmin = () => {
-    return user && user.role === 'admin';
+    return user && (user.role === 'admin' || user.role === 'superAdmin');
+  };
+
+  const isSuperAdmin = () => {
+    return user && user.role === 'superAdmin';
   };
 
   const isAuthenticated = () => {
@@ -81,6 +85,7 @@ export const AuthProvider = ({ children }) => {
     register,
     logout: logoutUser,
     isAdmin,
+    isSuperAdmin,
     isAuthenticated
   };
 
