@@ -16,7 +16,8 @@ export default {
     cta: 'Doe mee aan ons volgende evenement',
     latestEvent: 'Laatste Evenement',
     noEvents: 'Geen aankomende evenementen',
-    readMore: 'Lees Meer'
+    readMore: 'Lees Meer',
+    upcomingEvents: 'Aankomende Evenementen'
   },
   events: {
     title: 'Aankomende Evenementen',
@@ -74,6 +75,8 @@ export default {
     eventTime: 'Tijd',
     eventLocation: 'Locatie',
     maxParticipants: 'Maximaal Aantal Deelnemers',
+    eventImage: 'Evenement Afbeelding',
+    uploadImage: 'Afbeelding Uploaden',
     submit: 'Evenement Aanmaken',
     success: 'Evenement succesvol aangemaakt!',
     error: 'Er is een fout opgetreden bij het aanmaken van het evenement. Probeer het opnieuw.',

@@ -31,8 +31,30 @@ const AdminEventManager = () => {
       setError(null);
       const eventsData = await getEvents();
       
+      // Update event status based on date
+      const now = new Date();
+      const updatedEvents = eventsData.map(event => {
+        const eventDate = new Date(event.eventDate);
+        let status = event.status;
+
+        // If event is in the past and not already marked as completed
+        if (eventDate < now && status !== 'completed' && status !== 'cancelled') {
+          status = 'completed';
+        }
+        // If event is today and not already marked as ongoing
+        else if (eventDate.toDateString() === now.toDateString() && status !== 'ongoing' && status !== 'cancelled') {
+          status = 'ongoing';
+        }
+        // If event is in the future and not already marked as upcoming
+        else if (eventDate > now && status !== 'upcoming' && status !== 'cancelled') {
+          status = 'upcoming';
+        }
+
+        return { ...event, status };
+      });
+      
       // Sort events by date (newest first)
-      const sortedEvents = [...eventsData].sort((a, b) => 
+      const sortedEvents = [...updatedEvents].sort((a, b) => 
         new Date(b.eventDate) - new Date(a.eventDate)
       );
       
@@ -175,6 +197,17 @@ const AdminEventManager = () => {
                 </div>
               </div>
               <div className="flex items-center space-x-2">
+                {event.status && (
+                  <div className={cn(
+                    "px-3 py-1 rounded-full text-xs font-bold",
+                    event.status === 'upcoming' && "bg-green-500 text-white",
+                    event.status === 'ongoing' && "bg-blue-500 text-white",
+                    event.status === 'completed' && "bg-gray-500 text-white",
+                    event.status === 'cancelled' && "bg-red-500 text-white"
+                  )}>
+                    {t(`events.status.${event.status}`)}
+                  </div>
+                )}
                 <button
                   onClick={(e) => {
                     e.stopPropagation();

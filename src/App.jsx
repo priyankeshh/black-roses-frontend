@@ -1,3 +1,4 @@
+import './i18n/i18n';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
@@ -13,11 +14,18 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import './i18n/i18n';
+
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const { i18n } = useTranslation();
+
+  React.useEffect(() => {
+    i18n.changeLanguage('en'); // Set the default language here
+  }, [i18n]);
+
   return (
-    <LanguageProvider>
+    <LanguageProvider i18n={i18n}>
       <AuthProvider>
         <Router>
           <div className="flex flex-col min-h-screen">

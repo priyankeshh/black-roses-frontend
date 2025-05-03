@@ -163,7 +163,10 @@ const HomePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold mb-2">{t('home.upcomingEvents')}</h2>
+              <h2 className="text-3xl font-bold mb-2">
+                {console.log("t('home.upcomingEvents'):", t('home.upcomingEvents'))}
+                {t('home.upcomingEvents')}
+              </h2>
               <div className="w-24 h-1 bg-teal-500 mx-auto"></div>
             </motion.div>
 

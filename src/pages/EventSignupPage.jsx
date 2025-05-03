@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getEventById, registerForEvent } from '../lib/apiService';
-import { CheckCircle, AlertTriangle } from 'lucide-react';
+import { CheckCircle, AlertTriangle, Calendar, Clock, MapPin } from 'lucide-react';
 
 const EventSignupPage = () => {
   const { t } = useTranslation();
@@ -57,38 +57,18 @@ const EventSignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!actualEventId) return;
-
     try {
       setFormSubmitting(true);
-
-      const registrationData = {
-        name: formData.name,
-        email: formData.email,
-        teamName: formData.teamName
-      };
-
-      const result = await registerForEvent(actualEventId, registrationData);
-
+      const result = await registerForEvent(eventId, formData);
       if (result.success) {
         setFormStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          teamName: ''
-        });
-
-        // Redirect to events page after successful registration
+        // Redirect to home page after 3 seconds
         setTimeout(() => {
-          navigate('/events');
+          navigate('/');
         }, 3000);
-      } else {
-        throw new Error('Registration failed');
       }
-
     } catch (error) {
-      console.error('Error submitting registration:', error);
+      console.error('Error registering for event:', error);
       setFormStatus('error');
     } finally {
       setFormSubmitting(false);
@@ -113,18 +93,18 @@ const EventSignupPage = () => {
             <div className="mb-8 p-4 bg-gray-100 rounded-lg">
               <h2 className="text-xl font-semibold mb-2">{event.title}</h2>
               <p className="text-gray-700 mb-3">{event.description}</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <p className="text-sm text-gray-500">{t('events.date')}</p>
-                  <p className="font-medium">{new Date(event.eventDate).toLocaleDateString()}</p>
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center text-gray-800">
+                  <Calendar size={18} className="mr-2 text-primary" />
+                  <span>{new Date(event.eventDate).toLocaleDateString()}</span>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">{t('events.time')}</p>
-                  <p className="font-medium">{event.time}</p>
+                <div className="flex items-center text-gray-800">
+                  <Clock size={18} className="mr-2 text-primary" />
+                  <span>{event.time}</span>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">{t('events.location')}</p>
-                  <p className="font-medium">{event.location}</p>
+                <div className="flex items-center text-gray-800">
+                  <MapPin size={18} className="mr-2 text-primary" />
+                  <span>{event.location}</span>
                 </div>
               </div>
             </div>

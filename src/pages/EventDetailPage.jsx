@@ -82,22 +82,22 @@ const EventDetailPage = () => {
             <Link to="/" className="text-teal-600 hover:text-teal-700 mb-4 inline-block">
               &larr; {t('events.backToEvents')}
             </Link>
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">{event.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900">{event.title}</h1>
             <div className="flex flex-wrap gap-4 mb-4">
-              <div className="flex items-center text-gray-600">
+              <div className="flex items-center text-gray-800">
                 <Calendar size={18} className="mr-2 text-teal-600" />
                 <span>{formatDate(event.eventDate)}</span>
               </div>
-              <div className="flex items-center text-gray-600">
+              <div className="flex items-center text-gray-800">
                 <Clock size={18} className="mr-2 text-teal-600" />
                 <span>{event.time}</span>
               </div>
-              <div className="flex items-center text-gray-600">
+              <div className="flex items-center text-gray-800">
                 <MapPin size={18} className="mr-2 text-teal-600" />
                 <span>{event.location}</span>
               </div>
               {event.maxParticipants && (
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-gray-800">
                   <Users size={18} className="mr-2 text-teal-600" />
                   <span>
                     {event.registrations ? event.registrations.length : 0} / {event.maxParticipants} {t('events.participants')}
@@ -125,22 +125,20 @@ const EventDetailPage = () => {
 
           {/* Event Description */}
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 className="text-xl font-bold mb-4">{t('events.description')}</h2>
-            <div className="prose max-w-none">
-              <p className="whitespace-pre-line">{event.description}</p>
-            </div>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">{t('events.description')}</h2>
+            <p className="text-gray-800 whitespace-pre-wrap">{event.description}</p>
           </div>
 
           {/* Registration Button */}
-          <div className="bg-white rounded-lg shadow-md p-6 text-center">
-            <h2 className="text-xl font-bold mb-4">{t('events.joinEvent')}</h2>
-            <p className="mb-6">{t('events.joinEventDescription')}</p>
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">{t('events.joinEvent')}</h2>
+            <p className="text-gray-800 mb-6">{t('events.joinEventDescription')}</p>
             <Link
               to={`/event-signup/${event._id}-${event.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className={`inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors ${
+              className={`inline-flex items-center px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded transition-colors ${
                 isEventFull()
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-teal-600 hover:bg-teal-700 text-white"
+                  : ""
               }`}
               onClick={(e) => isEventFull() && e.preventDefault()}
             >

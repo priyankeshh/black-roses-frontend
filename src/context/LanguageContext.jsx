@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next';
 
 const LanguageContext = createContext();
 
-export function LanguageProvider({ children }) {
-  const { i18n } = useTranslation();
+export function LanguageProvider({ children, i18n }) {
+  //const { i18n } = useTranslation();
   const [language, setLanguageState] = useState('en');
 
   const setLanguage = (lang) => {
     setLanguageState(lang);
-    i18n.changeLanguage(lang);
+    i18n?.changeLanguage(lang);
   };
 
   return (

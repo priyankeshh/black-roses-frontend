@@ -58,7 +58,7 @@ const AlternatingEventCard = ({ event, index }) => {
             isEven ? "md:order-1" : "md:order-2"
           )}
         >
-          <h3 className="text-2xl font-oswald mb-3">{event.title}</h3>
+          <h3 className="text-2xl font-oswald mb-3 text-[#e0e0e0]">{event.title}</h3>
           <p className="text-gray-400 mb-4">{event.description}</p>
 
           <div className="space-y-2 mb-4">
@@ -74,24 +74,11 @@ const AlternatingEventCard = ({ event, index }) => {
               <MapPin size={18} className="mr-2 text-primary" />
               <span>{event.location}</span>
             </div>
-            {/* Always show registration count, with or without max participants */}
             <div className="flex items-center text-gray-300">
               <Users size={18} className="mr-2 text-primary" />
               <span>
                 {event.registrations ? event.registrations.length : 0}
                 {event.maxParticipants ? ` / ${event.maxParticipants}` : ''} {t('events.participants')}
-              </span>
-            </div>
-
-            {/* Registration badge */}
-            <div className="mt-2">
-              <span className={cn(
-                "inline-block px-3 py-1 rounded-full text-xs font-bold",
-                isEventFull() ? "bg-red-500 text-white" : "bg-green-500 text-white"
-              )}>
-                {isEventFull()
-                  ? t('events.registrationsFull')
-                  : `${event.registrations ? event.registrations.length : 0} ${t('events.registrationsCount')}`}
               </span>
             </div>
           </div>

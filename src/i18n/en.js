@@ -16,7 +16,8 @@ export default {
     cta: 'Join our next event',
     latestEvent: 'Latest Event',
     noEvents: 'No upcoming events',
-    readMore: 'Read More'
+    readMore: 'Read More',
+    upcomingEvents: 'Upcoming Events'
   },
   events: {
     title: 'Upcoming Events',
@@ -74,6 +75,8 @@ export default {
     eventTime: 'Time',
     eventLocation: 'Location',
     maxParticipants: 'Max Participants',
+    eventImage: 'Event Image',
+    uploadImage: 'Upload Image',
     submit: 'Create Event',
     success: 'Event created successfully!',
     error: 'There was an error creating the event. Please try again.',

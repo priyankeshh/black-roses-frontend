@@ -16,7 +16,7 @@ const Footer = () => {
           <div className="md:col-span-1">
             <div className="flex flex-col items-start">
               <img src={logoImage} alt="Black Roses Logo" className="h-16 w-16 mb-4" />
-              <h3 className="text-xl font-oswald mb-2">Black Roses</h3>
+              <h3 className="text-xl font-oswald mb-2 text-[#e0e0e0]">Black Roses</h3>
               <p className="text-gray-400 text-sm">
                 An elite airsoft team based in the Belgium.
               </p>
@@ -24,7 +24,7 @@ const Footer = () => {
           </div>
           
           <div className="md:col-span-1">
-            <h4 className="text-lg font-oswald mb-4">Links</h4>
+            <h4 className="text-lg font-oswald mb-4 text-[#e0e0e0]">Links</h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-gray-400 hover:text-primary transition-colors">
@@ -50,13 +50,13 @@ const Footer = () => {
           </div>
           
           <div className="md:col-span-1">
-            <h4 className="text-lg font-oswald mb-4">{t('contact.locationTitle')}</h4>
+            <h4 className="text-lg font-oswald mb-4 text-[#e0e0e0]">{t('contact.locationTitle')}</h4>
             <p className="text-gray-400 mb-2">{t('contact.location')}</p>
             <p className="text-gray-400">info@blackroses.com</p>
           </div>
           
           <div className="md:col-span-1">
-            <h4 className="text-lg font-oswald mb-4">{t('footer.follow')}</h4>
+            <h4 className="text-lg font-oswald mb-4 text-[#e0e0e0]">{t('footer.follow')}</h4>
             <div className="flex space-x-4">
               <a 
                 href="https://instagram.com" 

@@ -108,6 +108,7 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                       "px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full",
                       getStatusBadgeClass(registration.status)
                     )}>
+                      {console.log("t(`admin.status.${registration.status}`):", t(`admin.status.${registration.status}`))}
                       {t(`admin.status.${registration.status}`)}
                     </span>
                   </td>
