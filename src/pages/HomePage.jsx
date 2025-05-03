@@ -114,16 +114,16 @@ const HomePage = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                   <div className="bg-white p-3 rounded shadow-sm">
-                    <p className="text-gray-500 text-sm">{t('events.date')}</p>
-                    <p className="font-semibold">{new Date(latestEvent.eventDate).toLocaleDateString()}</p>
+                    <p className="text-gray-800 text-sm">{t('events.date')}</p>
+                    <p className="font-semibold text-black">{new Date(latestEvent.eventDate).toLocaleDateString()}</p>
                   </div>
                   <div className="bg-white p-3 rounded shadow-sm">
-                    <p className="text-gray-500 text-sm">{t('events.time')}</p>
-                    <p className="font-semibold">{latestEvent.time}</p>
+                    <p className="text-gray-800 text-sm">{t('events.time')}</p>
+                    <p className="font-semibold text-black">{latestEvent.time}</p>
                   </div>
                   <div className="bg-white p-3 rounded shadow-sm">
-                    <p className="text-gray-500 text-sm">{t('events.location')}</p>
-                    <p className="font-semibold">{latestEvent.location}</p>
+                    <p className="text-gray-800 text-sm">{t('events.location')}</p>
+                    <p className="font-semibold text-black">{latestEvent.location}</p>
                   </div>
                 </div>
 
