@@ -169,7 +169,7 @@ const ContactPage = () => {
                   <div className="flex items-start">
                     <Mail className="text-teal-600 mt-1 mr-4" size={20} />
                     <div>
-                      <p className="font-medium">Email</p>
+                      <p className="font-medium text-black">Email</p>
                       <p className="text-gray-600">info@blackroses.com</p>
                     </div>
                   </div>
@@ -177,7 +177,7 @@ const ContactPage = () => {
                   <div className="flex items-start">
                     <Phone className="text-teal-600 mt-1 mr-4" size={20} />
                     <div>
-                      <p className="font-medium">Phone</p>
+                      <p className="font-medium text-black">Phone</p>
                       <p className="text-gray-600">+32 470 123456</p>
                     </div>
                   </div>
@@ -185,7 +185,7 @@ const ContactPage = () => {
                   <div className="flex items-start">
                     <MapPin className="text-teal-600 mt-1 mr-4" size={20} />
                     <div>
-                      <p className="font-medium">{t('contact.locationTitle')}</p>
+                      <p className="font-medium text-black">{t('contact.locationTitle')}</p>
                       <p className="text-gray-600">{t('contact.location')}</p>
                     </div>
                   </div>
