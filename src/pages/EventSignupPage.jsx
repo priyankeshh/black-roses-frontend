@@ -19,8 +19,11 @@ const EventSignupPage = () => {
 
   const [formData, setFormData] = useState({
     name: '',
+    age: '',
     email: '',
-    teamName: ''
+    phone: '',
+    gear: 'own',
+    wantsFood: false
   });
 
   useEffect(() => {
@@ -48,10 +51,10 @@ const EventSignupPage = () => {
   }, [actualEventId, navigate]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     });
   };
 
@@ -138,6 +141,22 @@ const EventSignupPage = () => {
               </div>
 
               <div>
+                <label htmlFor="age" className="block text-gray-700 font-medium mb-1">
+                  {t('eventSignup.age')} *
+                </label>
+                <input
+                  type="number"
+                  id="age"
+                  name="age"
+                  min="18"
+                  value={formData.age}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                />
+              </div>
+
+              <div>
                 <label htmlFor="email" className="block text-gray-700 font-medium mb-1">
                   {t('eventSignup.email')} *
                 </label>
@@ -153,18 +172,71 @@ const EventSignupPage = () => {
               </div>
 
               <div>
-                <label htmlFor="teamName" className="block text-gray-700 font-medium mb-1">
-                  {t('eventSignup.teamName')} *
+                <label htmlFor="phone" className="block text-gray-700 font-medium mb-1">
+                  {t('eventSignup.phone')} *
                 </label>
                 <input
-                  type="text"
-                  id="teamName"
-                  name="teamName"
-                  value={formData.teamName}
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={formData.phone}
                   onChange={handleInputChange}
                   required
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
+              </div>
+
+              <div>
+                <label className="block text-gray-700 font-medium mb-1">
+                  {t('eventSignup.gear')} *
+                </label>
+                <div className="flex space-x-4 mt-2">
+                  <div className="flex items-center">
+                    <input
+                      type="radio"
+                      id="own-gear"
+                      name="gear"
+                      value="own"
+                      checked={formData.gear === 'own'}
+                      onChange={handleInputChange}
+                      required
+                      className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
+                    />
+                    <label htmlFor="own-gear" className="text-gray-700">
+                      {t('eventSignup.ownGear')}
+                    </label>
+                  </div>
+                  <div className="flex items-center">
+                    <input
+                      type="radio"
+                      id="rental-gear"
+                      name="gear"
+                      value="rental"
+                      checked={formData.gear === 'rental'}
+                      onChange={handleInputChange}
+                      className="mr-2 h-4 w-4 text-teal-600 focus:ring-teal-500"
+                    />
+                    <label htmlFor="rental-gear" className="text-gray-700">
+                      {t('eventSignup.rentalGear')}
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="wantsFood"
+                    name="wantsFood"
+                    checked={formData.wantsFood}
+                    onChange={handleInputChange}
+                    className="h-4 w-4 text-teal-600 focus:ring-teal-500 mr-2"
+                  />
+                  <label htmlFor="wantsFood" className="text-gray-700">
+                    {t('eventSignup.wantsFood')}
+                  </label>
+                </div>
               </div>
 
               <button
