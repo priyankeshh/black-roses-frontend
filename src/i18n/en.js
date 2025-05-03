@@ -30,6 +30,11 @@ export default {
     participants: 'Participants',
     full: 'Event Full',
     fetchError: 'Failed to load events. Please try again.',
+    description: 'Description',
+    joinEvent: 'Join This Event',
+    joinEventDescription: 'Register now to secure your spot at this event. Limited spaces available!',
+    backToEvents: 'Back to Events',
+    notFound: 'Event not found',
     status: {
       upcoming: 'Upcoming',
       ongoing: 'Ongoing',

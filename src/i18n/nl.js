@@ -30,6 +30,11 @@ export default {
     participants: 'Deelnemers',
     full: 'Evenement Vol',
     fetchError: 'Kan evenementen niet laden. Probeer het opnieuw.',
+    description: 'Beschrijving',
+    joinEvent: 'Doe Mee Aan Dit Evenement',
+    joinEventDescription: 'Registreer nu om je plek bij dit evenement te reserveren. Beperkte plaatsen beschikbaar!',
+    backToEvents: 'Terug naar Evenementen',
+    notFound: 'Evenement niet gevonden',
     status: {
       upcoming: 'Aankomend',
       ongoing: 'Bezig',
