@@ -73,9 +73,34 @@ export default {
     eventDate: 'Date',
     eventTime: 'Time',
     eventLocation: 'Location',
+    maxParticipants: 'Max Participants',
     submit: 'Create Event',
     success: 'Event created successfully!',
-    error: 'There was an error creating the event. Please try again.'
+    error: 'There was an error creating the event. Please try again.',
+    updateError: 'There was an error updating the event. Please try again.',
+    deleteError: 'There was an error deleting the event. Please try again.',
+    confirmDelete: 'Are you sure you want to delete this event?',
+    noEvents: 'No events found',
+    fetchError: 'Failed to load events. Please try again.',
+    manageEvents: 'Manage Events',
+    registrations: 'Registrations',
+    total: 'Total',
+    name: 'Name',
+    email: 'Email',
+    team: 'Team',
+    status: 'Status',
+    registeredAt: 'Registered At',
+    actions: 'Actions',
+    manageAdmins: 'Manage Admins',
+    addAdmin: 'Add Admin',
+    removeAdmin: 'Remove Admin',
+    adminEmail: 'Admin Email',
+    superAdmin: 'Super Admin',
+    regularAdmin: 'Regular Admin',
+    adminAdded: 'Admin added successfully',
+    adminRemoved: 'Admin removed successfully',
+    adminError: 'Error managing admin',
+    confirmRemoveAdmin: 'Are you sure you want to remove this admin?'
   },
   footer: {
     rights: 'All rights reserved',
@@ -110,6 +135,13 @@ export default {
     backHome: 'Back to Home'
   },
   common: {
-    retry: 'Try Again'
+    retry: 'Try Again',
+    cancel: 'Cancel',
+    save: 'Save',
+    edit: 'Edit',
+    delete: 'Delete',
+    confirm: 'Confirm',
+    success: 'Success',
+    error: 'Error'
   }
 };

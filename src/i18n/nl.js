@@ -73,9 +73,34 @@ export default {
     eventDate: 'Datum',
     eventTime: 'Tijd',
     eventLocation: 'Locatie',
+    maxParticipants: 'Maximaal Aantal Deelnemers',
     submit: 'Evenement Aanmaken',
     success: 'Evenement succesvol aangemaakt!',
-    error: 'Er is een fout opgetreden bij het aanmaken van het evenement. Probeer het opnieuw.'
+    error: 'Er is een fout opgetreden bij het aanmaken van het evenement. Probeer het opnieuw.',
+    updateError: 'Er is een fout opgetreden bij het bijwerken van het evenement. Probeer het opnieuw.',
+    deleteError: 'Er is een fout opgetreden bij het verwijderen van het evenement. Probeer het opnieuw.',
+    confirmDelete: 'Weet je zeker dat je dit evenement wilt verwijderen?',
+    noEvents: 'Geen evenementen gevonden',
+    fetchError: 'Kan evenementen niet laden. Probeer het opnieuw.',
+    manageEvents: 'Evenementen Beheren',
+    registrations: 'Registraties',
+    total: 'Totaal',
+    name: 'Naam',
+    email: 'E-mail',
+    team: 'Team',
+    status: 'Status',
+    registeredAt: 'Geregistreerd Op',
+    actions: 'Acties',
+    manageAdmins: 'Beheerders Beheren',
+    addAdmin: 'Beheerder Toevoegen',
+    removeAdmin: 'Beheerder Verwijderen',
+    adminEmail: 'Beheerder E-mail',
+    superAdmin: 'Super Beheerder',
+    regularAdmin: 'Reguliere Beheerder',
+    adminAdded: 'Beheerder succesvol toegevoegd',
+    adminRemoved: 'Beheerder succesvol verwijderd',
+    adminError: 'Fout bij het beheren van beheerder',
+    confirmRemoveAdmin: 'Weet je zeker dat je deze beheerder wilt verwijderen?'
   },
   footer: {
     rights: 'Alle rechten voorbehouden',
@@ -110,6 +135,13 @@ export default {
     backHome: 'Terug naar Home'
   },
   common: {
-    retry: 'Probeer Opnieuw'
+    retry: 'Probeer Opnieuw',
+    cancel: 'Annuleren',
+    save: 'Opslaan',
+    edit: 'Bewerken',
+    delete: 'Verwijderen',
+    confirm: 'Bevestigen',
+    success: 'Succes',
+    error: 'Fout'
   }
 };
