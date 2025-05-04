@@ -44,7 +44,12 @@ const ProfilePage = () => {
     try {
       setLoading(true);
       const events = await getUserEvents();
-      // Removed console logs for cleaner console output
+      console.log('Received events from API:', events);
+
+      // Log the first event to see its structure
+      if (events && events.length > 0) {
+        console.log('First event structure:', JSON.stringify(events[0], null, 2));
+      }
 
       // Handle different data structures that might come from the API
       let eventsArray = [];
@@ -61,7 +66,7 @@ const ProfilePage = () => {
         eventsArray = [events];
       }
 
-      // Set user events without logging
+      console.log('Setting user events:', eventsArray);
       setUserEvents(eventsArray);
     } catch (error) {
       console.error('Error fetching user events:', error);
@@ -418,9 +423,9 @@ const ProfilePage = () => {
                 <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
               </div>
             ) : userEvents.length > 0 ? (
-              <div className="grid grid-cols-1 gap-4">
+              <div className="space-y-6">
                 {userEvents.map(event => (
-                  <ProfileEventCard key={event._id || event.id} event={event} />
+                  <EventCard key={event._id || event.id} event={event} />
                 ))}
               </div>
             ) : (

@@ -9,6 +9,7 @@ const EventCard = ({ event }) => {
 
   // Check if event is valid
   if (!event || typeof event !== 'object') {
+    console.error('Invalid event object:', event);
     return <div className="p-4 bg-red-100 text-red-800 rounded">Invalid event data</div>;
   }
 
@@ -18,7 +19,8 @@ const EventCard = ({ event }) => {
   // Ensure we have a valid ID (handle both _id and id)
   const eventId = actualEvent._id || actualEvent.id;
 
-  // Event ID is used for links
+  // Log the event structure to debug
+  console.log('EventCard received event:', { eventId, actualEvent });
 
   // Format date from ISO string
   const formatDate = (dateString) => {

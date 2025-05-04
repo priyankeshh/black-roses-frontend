@@ -102,13 +102,7 @@ export const getEvents = async () => {
 };
 
 export const getEventById = async (id) => {
-  // Extract the actual event ID from the URL if it contains a hyphen
-  // This handles URLs like "123456-event-title"
-  const actualId = id.includes('-') ? id.split('-')[0] : id;
-
-  // Get event by ID
-
-  const response = await fetch(`${API_URL}/events/${actualId}`);
+  const response = await fetch(`${API_URL}/events/${id}`);
   const data = await handleResponse(response);
   // Handle the new response format
   return data.data || data;
@@ -136,12 +130,7 @@ export const createEvent = async (eventData) => {
 // Check if a user is already registered for an event
 export const checkEventRegistration = async (eventId, email) => {
   try {
-    // Extract the actual event ID from the URL if it contains a hyphen
-    const actualId = eventId.includes('-') ? eventId.split('-')[0] : eventId;
-
-    // Check registration for event
-
-    const response = await fetch(`${API_URL}/events/${actualId}/check-registration?email=${encodeURIComponent(email)}`, {
+    const response = await fetch(`${API_URL}/events/${eventId}/check-registration?email=${encodeURIComponent(email)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -158,13 +147,7 @@ export const checkEventRegistration = async (eventId, email) => {
 
 export const registerForEvent = async (eventId, registrationData) => {
   try {
-    // Extract the actual event ID from the URL if it contains a hyphen
-    // This handles URLs like "123456-event-title"
-    const actualEventId = eventId.includes('-') ? eventId.split('-')[0] : eventId;
-
-    // Register for event
-
-    const response = await fetch(`${API_URL}/events/${actualEventId}/register`, {
+    const response = await fetch(`${API_URL}/events/${eventId}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -310,6 +293,7 @@ export const getUserEvents = async () => {
     });
 
     const data = await handleResponse(response);
+    console.log('Raw API response from getUserEvents:', data);
 
     // Handle the new response format
     if (data && data.data && data.data.events && Array.isArray(data.data.events)) {
