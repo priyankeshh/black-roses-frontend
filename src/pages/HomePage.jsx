@@ -12,11 +12,13 @@ const HomePage = () => {
   const [latestEvent, setLatestEvent] = useState(null);
   const [allEvents, setAllEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         setLoading(true);
+        setError(null);
         const events = await getEvents();
 
         if (events && events.length > 0) {
@@ -54,7 +56,7 @@ const HomePage = () => {
           setAllEvents(combined);
         }
       } catch (error) {
-        console.error('Error fetching events:', error);
+        setError(error.message || 'Failed to fetch events');
       } finally {
         setLoading(false);
       }
@@ -96,6 +98,16 @@ const HomePage = () => {
             <div className="flex justify-center">
               <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
             </div>
+          ) : error ? (
+            <motion.div
+              className="text-center text-red-600"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+            >
+              <p>{error}</p>
+            </motion.div>
           ) : latestEvent ? (
             <motion.div
               className="max-w-3xl mx-auto bg-gray-100 rounded-lg overflow-hidden shadow-md"
@@ -163,10 +175,7 @@ const HomePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold mb-2">
-                {console.log("t('home.upcomingEvents'):", t('home.upcomingEvents'))}
-                {t('home.upcomingEvents')}
-              </h2>
+              <h2 className="text-3xl font-bold mb-2">{t('home.upcomingEvents')}</h2>
               <div className="w-24 h-1 bg-teal-500 mx-auto"></div>
             </motion.div>
 
