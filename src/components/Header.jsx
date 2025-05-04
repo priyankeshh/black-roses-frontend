@@ -79,13 +79,18 @@ const Header = () => {
 
           {/* Authentication links */}
           {user ? (
-            <button
-              onClick={handleLogout}
-              className="flex items-center space-x-1 hover:text-primary transition-colors"
-            >
-              <LogOut size={18} />
-              <span>{t('navigation.logout')}</span>
-            </button>
+            <>
+              <div className="flex items-center space-x-1 text-primary">
+                <span className="font-medium">{user.name}</span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="flex items-center space-x-1 hover:text-primary transition-colors"
+              >
+                <LogOut size={18} />
+                <span>{t('navigation.logout')}</span>
+              </button>
+            </>
           ) : (
             <>
               <Link
@@ -169,13 +174,18 @@ const Header = () => {
 
             {/* Authentication links */}
             {user ? (
-              <button
-                onClick={handleLogout}
-                className="flex items-center space-x-1 py-2 text-left"
-              >
-                <LogOut size={18} />
-                <span>{t('navigation.logout')}</span>
-              </button>
+              <>
+                <div className="flex items-center space-x-1 py-2 text-primary">
+                  <span className="font-medium">{user.name}</span>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center space-x-1 py-2 text-left"
+                >
+                  <LogOut size={18} />
+                  <span>{t('navigation.logout')}</span>
+                </button>
+              </>
             ) : (
               <>
                 <Link
