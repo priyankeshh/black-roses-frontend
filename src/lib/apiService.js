@@ -4,20 +4,11 @@
 
 const API_URL = 'http://localhost:5000/api';
 
-// Custom error class for API errors
-class APIError extends Error {
-  constructor(message, status, data = null) {
-    super(message);
-    this.name = 'APIError';
-    this.status = status;
-    this.data = data;
-  }
-}
-
 // Helper function to handle API responses
 const handleResponse = async (response) => {
   try {
     const data = await response.json();
+    console.log(`API Response [${response.status}]:`, data);
 
     if (!response.ok) {
       // Check if token is expired
@@ -31,15 +22,14 @@ const handleResponse = async (response) => {
       }
 
       const errorMessage = data.error || 'Something went wrong';
-      throw new APIError(errorMessage, response.status, data);
+      console.error(`API Error [${response.status}]:`, errorMessage);
+      throw new Error(errorMessage);
     }
 
     return data;
   } catch (error) {
-    if (error instanceof APIError) {
-      throw error;
-    }
-    throw new APIError('Failed to process server response', 500);
+    console.error('Error parsing API response:', error);
+    throw new Error('Failed to process server response');
   }
 };
 
@@ -121,6 +111,8 @@ export const getEventById = async (id) => {
 
 export const createEvent = async (eventData) => {
   try {
+    console.log('API Service - Creating event with data:', eventData);
+
     const response = await fetch(`${API_URL}/events`, {
       method: 'POST',
       headers: {
@@ -131,14 +123,18 @@ export const createEvent = async (eventData) => {
     });
 
     const data = await handleResponse(response);
+    console.log('API Service - Event creation response:', data);
     return { success: true, data: data.data };
   } catch (error) {
-    throw error instanceof APIError ? error : new APIError('Failed to create event', 500);
+    console.error('API Service - Error creating event:', error);
+    throw error;
   }
 };
 
 export const registerForEvent = async (eventId, registrationData) => {
   try {
+    console.log('Registering for event:', eventId, 'with data:', registrationData);
+
     const response = await fetch(`${API_URL}/events/${eventId}/register`, {
       method: 'POST',
       headers: {
@@ -148,9 +144,11 @@ export const registerForEvent = async (eventId, registrationData) => {
     });
 
     const data = await handleResponse(response);
+    console.log('Registration response:', data);
     return { success: true, data: data.data };
   } catch (error) {
-    throw error instanceof APIError ? error : new APIError('Failed to register for event', 500);
+    console.error('Error registering for event:', error);
+    throw error;
   }
 };
 
@@ -271,7 +269,7 @@ export const createAdminUser = async (userData) => {
   });
 
   const data = await handleResponse(response);
-  return { success: true, data: data.data };
+  return data.data;
 };
 
 export const updateUserRole = async (userId, role) => {
@@ -285,7 +283,7 @@ export const updateUserRole = async (userId, role) => {
   });
 
   const data = await handleResponse(response);
-  return { success: true, data: data.data };
+  return data.data;
 };
 
 export const deleteUser = async (userId) => {
@@ -295,9 +293,10 @@ export const deleteUser = async (userId) => {
   });
 
   const data = await handleResponse(response);
-  return { success: true, data: data.data };
+  return data;
 };
 
+// Update event functions
 export const updateEvent = async (eventId, eventData) => {
   const response = await fetch(`${API_URL}/events/${eventId}`, {
     method: 'PUT',
@@ -309,9 +308,10 @@ export const updateEvent = async (eventId, eventData) => {
   });
 
   const data = await handleResponse(response);
-  return { success: true, data: data.data };
+  return data.data;
 };
 
+// Update registration status
 export const updateRegistrationStatus = async (eventId, registrationId, status) => {
   const response = await fetch(`${API_URL}/events/${eventId}/registrations/${status}`, {
     method: 'PUT',
@@ -323,7 +323,7 @@ export const updateRegistrationStatus = async (eventId, registrationId, status) 
   });
 
   const data = await handleResponse(response);
-  return { success: true, data: data.data };
+  return data.data;
 };
 
 export const deleteEvent = async (eventId) => {
@@ -333,27 +333,32 @@ export const deleteEvent = async (eventId) => {
   });
 
   const data = await handleResponse(response);
-  return { success: true, data: data.data };
+  return data;
 };
 
+// File upload functions
 export const uploadImage = async (file, type = 'event') => {
   try {
+    console.log(`Uploading ${type} image:`, file.name);
+
     const formData = new FormData();
     formData.append('image', file);
-    formData.append('type', type);
 
-    const response = await fetch(`${API_URL}/upload`, {
+    const response = await fetch(`${API_URL}/upload/${type}`, {
       method: 'POST',
       headers: {
-        ...authHeader()
+        ...authHeader(),
+        // Don't set Content-Type here, it will be set automatically with the boundary
       },
       body: formData
     });
 
     const data = await handleResponse(response);
-    return { success: true, data: data.data };
+    console.log('Upload response:', data);
+    return data.data;
   } catch (error) {
-    throw error instanceof APIError ? error : new APIError('Failed to upload image', 500);
+    console.error('Error uploading image:', error);
+    throw error;
   }
 };
 

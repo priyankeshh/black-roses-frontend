@@ -14,7 +14,6 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
-import ErrorBoundary from './components/ErrorBoundary';
 
 import { useTranslation } from 'react-i18next';
 
@@ -26,71 +25,35 @@ function App() {
   }, [i18n]);
 
   return (
-    <ErrorBoundary>
-      <LanguageProvider i18n={i18n}>
-        <AuthProvider>
-          <Router>
-            <div className="flex flex-col min-h-screen">
-              <ErrorBoundary>
-                <Header />
-              </ErrorBoundary>
-              <main className="flex-grow">
-                <Routes>
-                  <Route path="/" element={
-                    <ErrorBoundary>
-                      <HomePage />
-                    </ErrorBoundary>
-                  } />
-                  <Route path="/events/:eventId" element={
-                    <ErrorBoundary>
-                      <EventDetailPage />
-                    </ErrorBoundary>
-                  } />
-                  <Route path="/event-signup/:eventId" element={
-                    <ErrorBoundary>
-                      <EventSignupPage />
-                    </ErrorBoundary>
-                  } />
-                  <Route path="/contact" element={
-                    <ErrorBoundary>
-                      <ContactPage />
-                    </ErrorBoundary>
-                  } />
-                  <Route path="/login" element={
-                    <ErrorBoundary>
-                      <LoginPage />
-                    </ErrorBoundary>
-                  } />
-                  <Route path="/register" element={
-                    <ErrorBoundary>
-                      <RegisterPage />
-                    </ErrorBoundary>
-                  } />
-                  <Route
-                    path="/admin"
-                    element={
-                      <ErrorBoundary>
-                        <ProtectedRoute requireAdmin={true}>
-                          <AdminPage />
-                        </ProtectedRoute>
-                      </ErrorBoundary>
-                    }
-                  />
-                  <Route path="*" element={
-                    <ErrorBoundary>
-                      <NotFoundPage />
-                    </ErrorBoundary>
-                  } />
-                </Routes>
-              </main>
-              <ErrorBoundary>
-                <Footer />
-              </ErrorBoundary>
-            </div>
-          </Router>
-        </AuthProvider>
-      </LanguageProvider>
-    </ErrorBoundary>
+    <LanguageProvider i18n={i18n}>
+      <AuthProvider>
+        <Router>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/events/:eventId" element={<EventDetailPage />} />
+                <Route path="/event-signup/:eventId" element={<EventSignupPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute requireAdmin={true}>
+                      <AdminPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
 
