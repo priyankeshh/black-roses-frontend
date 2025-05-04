@@ -24,10 +24,11 @@ const EventCard = ({ event }) => {
       "bg-dark-100 shadow-md rounded-lg overflow-hidden border border-dark-200",
       "transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
     )}>
-      <div
-        className="h-48 bg-cover bg-center relative"
-        style={{ backgroundImage: `url('${event.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')` }}
-      >
+      <div className="h-48 relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url('${event.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')` }}
+        ></div>
         {event.status && (
           <div className={cn(
             "absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold",

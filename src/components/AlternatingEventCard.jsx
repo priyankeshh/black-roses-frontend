@@ -33,11 +33,18 @@ const AlternatingEventCard = ({ event, index }) => {
         {/* Image Section - Left on odd indexes, Right on even indexes */}
         <div
           className={cn(
-            "md:w-1/2 h-64 bg-cover bg-center relative",
+            "md:w-1/2 h-64 relative overflow-hidden",
             isEven ? "md:order-2" : "md:order-1"
           )}
-          style={{ backgroundImage: `url('${event.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')` }}
         >
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: `url('${event.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')`,
+              backgroundPosition: 'center center',
+              backgroundSize: 'cover'
+            }}
+          ></div>
           {event.status && (
             <div className={cn(
               "absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold",

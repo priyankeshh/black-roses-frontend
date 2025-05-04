@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getEventById, registerForEvent } from '../lib/apiService';
-import { CheckCircle, AlertTriangle, Calendar, Clock, MapPin } from 'lucide-react';
+import { getEventById, registerForEvent, checkEventRegistration } from '../lib/apiService';
+import { CheckCircle, AlertTriangle, Calendar, Clock, MapPin, Info } from 'lucide-react';
 
 const EventSignupPage = () => {
   const { t } = useTranslation();
@@ -16,6 +16,7 @@ const EventSignupPage = () => {
   const [loading, setLoading] = useState(true);
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState('idle');
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -56,18 +57,41 @@ const EventSignupPage = () => {
     fetchEvent();
   }, [actualEventId, navigate]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
+    const newFormData = {
       ...formData,
       [name]: type === 'checkbox' ? checked : value
-    });
+    };
+
+    setFormData(newFormData);
+
+    // If email field is changed and has a valid format, check if already registered
+    if (name === 'email' && value && value.includes('@') && actualEventId) {
+      try {
+        const isRegistered = await checkEventRegistration(actualEventId, value);
+        setAlreadyRegistered(isRegistered);
+      } catch (error) {
+        console.error('Error checking registration:', error);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setFormSubmitting(true);
+
+      // Check if already registered before submitting
+      const isRegistered = await checkEventRegistration(actualEventId, formData.email);
+
+      if (isRegistered) {
+        setAlreadyRegistered(true);
+        setFormStatus('already-registered');
+        return;
+      }
+
       const result = await registerForEvent(eventId, formData);
       if (result.success) {
         setFormStatus('success');
@@ -78,7 +102,14 @@ const EventSignupPage = () => {
       }
     } catch (error) {
       console.error('Error registering for event:', error);
-      setFormStatus('error');
+
+      // Check if the error is because user is already registered
+      if (error.message && error.message.includes('already registered')) {
+        setAlreadyRegistered(true);
+        setFormStatus('already-registered');
+      } else {
+        setFormStatus('error');
+      }
     } finally {
       setFormSubmitting(false);
     }
@@ -129,6 +160,11 @@ const EventSignupPage = () => {
               <AlertTriangle className="text-red-500 mr-3 flex-shrink-0 mt-0.5" size={20} />
               <p>{t('eventSignup.error')}</p>
             </div>
+          ) : formStatus === 'already-registered' || alreadyRegistered ? (
+            <div className="p-4 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 flex items-start">
+              <Info className="text-blue-500 mr-3 flex-shrink-0 mt-0.5" size={20} />
+              <p>{t('eventSignup.alreadyRegistered') || 'You are already registered for this event.'}</p>
+            </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -173,8 +209,16 @@ const EventSignupPage = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500 ${
+                    alreadyRegistered ? 'border-blue-500 bg-blue-50' : 'border-gray-300'
+                  }`}
                 />
+                {alreadyRegistered && (
+                  <p className="mt-1 text-sm text-blue-600 flex items-center">
+                    <Info size={14} className="mr-1" />
+                    {t('eventSignup.emailAlreadyRegistered') || 'This email is already registered for this event.'}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -247,7 +291,7 @@ const EventSignupPage = () => {
 
               <button
                 type="submit"
-                disabled={formSubmitting}
+                disabled={formSubmitting || alreadyRegistered}
                 className="w-full px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-70"
               >
                 {formSubmitting ? (

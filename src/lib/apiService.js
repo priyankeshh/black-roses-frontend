@@ -127,6 +127,24 @@ export const createEvent = async (eventData) => {
   }
 };
 
+// Check if a user is already registered for an event
+export const checkEventRegistration = async (eventId, email) => {
+  try {
+    const response = await fetch(`${API_URL}/events/${eventId}/check-registration?email=${encodeURIComponent(email)}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const data = await handleResponse(response);
+    return data.isRegistered || false;
+  } catch (error) {
+    console.error('Error checking registration:', error);
+    return false;
+  }
+};
+
 export const registerForEvent = async (eventId, registrationData) => {
   try {
     const response = await fetch(`${API_URL}/events/${eventId}/register`, {
