@@ -173,6 +173,33 @@ export default {
     passwordsDoNotMatch: 'Passwords do not match',
     genericError: 'Registration failed. Please try again.'
   },
+  profile: {
+    title: 'My Profile',
+    name: 'Full Name',
+    email: 'Email Address',
+    editProfile: 'Edit Profile',
+    changePassword: 'Change Password',
+    currentPassword: 'Current Password',
+    newPassword: 'New Password',
+    confirmPassword: 'Confirm Password',
+    save: 'Save Changes',
+    cancel: 'Cancel',
+    updateSuccess: 'Profile updated successfully!',
+    updateError: 'Failed to update profile. Please try again.',
+    passwordUpdateSuccess: 'Password updated successfully!',
+    passwordUpdateError: 'Failed to update password. Please try again.',
+    passwordsDoNotMatch: 'New password and confirmation do not match',
+    imageUploadSuccess: 'Profile image uploaded successfully!',
+    imageUploadError: 'Failed to upload profile image. Please try again.',
+    myEvents: 'My Events',
+    noEvents: 'You have not registered for any events yet.',
+    notLoggedIn: 'Please log in to view your profile.',
+    role: {
+      user: 'Member',
+      admin: 'Administrator',
+      superAdmin: 'Super Administrator'
+    }
+  },
   notFound: {
     title: 'Page Not Found',
     message: 'The page you are looking for does not exist or has been moved.',

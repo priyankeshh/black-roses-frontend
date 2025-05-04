@@ -77,6 +77,10 @@ export const AuthProvider = ({ children }) => {
     return !!user;
   };
 
+  const updateUser = (userData) => {
+    setUser(userData);
+  };
+
   const value = {
     user,
     loading,
@@ -86,7 +90,8 @@ export const AuthProvider = ({ children }) => {
     logout: logoutUser,
     isAdmin,
     isSuperAdmin,
-    isAuthenticated
+    isAuthenticated,
+    updateUser
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

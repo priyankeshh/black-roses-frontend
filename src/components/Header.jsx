@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Globe, LogOut, LogIn, UserPlus } from 'lucide-react';
+import { Menu, X, Globe, LogOut, LogIn, UserPlus, User } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { cn } from '../lib/utils';
@@ -80,9 +80,24 @@ const Header = () => {
           {/* Authentication links */}
           {user ? (
             <>
-              <div className="flex items-center space-x-1 text-primary">
-                <span className="font-medium">{user.name}</span>
-              </div>
+              <Link
+                to="/profile"
+                className={cn(
+                  "flex items-center space-x-1 hover:text-primary transition-colors",
+                  isActive('/profile') && "text-primary"
+                )}
+              >
+                <div className="flex items-center space-x-1">
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 flex items-center justify-center">
+                    {user.profileImage ? (
+                      <img src={user.profileImage} alt={user.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <User size={16} className="text-gray-300" />
+                    )}
+                  </div>
+                  <span className="font-medium">{user.name}</span>
+                </div>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="flex items-center space-x-1 hover:text-primary transition-colors"
@@ -175,9 +190,23 @@ const Header = () => {
             {/* Authentication links */}
             {user ? (
               <>
-                <div className="flex items-center space-x-1 py-2 text-primary">
+                <Link
+                  to="/profile"
+                  className={cn(
+                    "flex items-center space-x-2 py-2",
+                    isActive('/profile') && "text-primary"
+                  )}
+                  onClick={toggleMenu}
+                >
+                  <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-700 flex items-center justify-center">
+                    {user.profileImage ? (
+                      <img src={user.profileImage} alt={user.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <User size={16} className="text-gray-300" />
+                    )}
+                  </div>
                   <span className="font-medium">{user.name}</span>
-                </div>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="flex items-center space-x-1 py-2 text-left"

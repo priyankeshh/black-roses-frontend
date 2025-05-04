@@ -102,7 +102,13 @@ export const getEvents = async () => {
 };
 
 export const getEventById = async (id) => {
-  const response = await fetch(`${API_URL}/events/${id}`);
+  // Extract the actual event ID from the URL if it contains a hyphen
+  // This handles URLs like "123456-event-title"
+  const actualId = id.includes('-') ? id.split('-')[0] : id;
+
+  // Get event by ID
+
+  const response = await fetch(`${API_URL}/events/${actualId}`);
   const data = await handleResponse(response);
   // Handle the new response format
   return data.data || data;
@@ -130,7 +136,12 @@ export const createEvent = async (eventData) => {
 // Check if a user is already registered for an event
 export const checkEventRegistration = async (eventId, email) => {
   try {
-    const response = await fetch(`${API_URL}/events/${eventId}/check-registration?email=${encodeURIComponent(email)}`, {
+    // Extract the actual event ID from the URL if it contains a hyphen
+    const actualId = eventId.includes('-') ? eventId.split('-')[0] : eventId;
+
+    // Check registration for event
+
+    const response = await fetch(`${API_URL}/events/${actualId}/check-registration?email=${encodeURIComponent(email)}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -147,7 +158,13 @@ export const checkEventRegistration = async (eventId, email) => {
 
 export const registerForEvent = async (eventId, registrationData) => {
   try {
-    const response = await fetch(`${API_URL}/events/${eventId}/register`, {
+    // Extract the actual event ID from the URL if it contains a hyphen
+    // This handles URLs like "123456-event-title"
+    const actualEventId = eventId.includes('-') ? eventId.split('-')[0] : eventId;
+
+    // Register for event
+
+    const response = await fetch(`${API_URL}/events/${actualEventId}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -244,6 +261,42 @@ export const getCurrentUser = async () => {
   return data.data;
 };
 
+export const updateUserProfile = async (profileData) => {
+  try {
+    const response = await fetch(`${API_URL}/auth/profile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...authHeader()
+      },
+      body: JSON.stringify(profileData)
+    });
+
+    const data = await handleResponse(response);
+    return { success: true, data: data.data || data };
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const changePassword = async (passwordData) => {
+  try {
+    const response = await fetch(`${API_URL}/auth/change-password`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...authHeader()
+      },
+      body: JSON.stringify(passwordData)
+    });
+
+    const data = await handleResponse(response);
+    return { success: true, data: data.data || data };
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const logout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('refreshToken');
@@ -251,13 +304,34 @@ export const logout = () => {
 
 // User events
 export const getUserEvents = async () => {
-  const response = await fetch(`${API_URL}/events/my-events`, {
-    headers: authHeader()
-  });
+  try {
+    const response = await fetch(`${API_URL}/events/user`, {
+      headers: authHeader()
+    });
 
-  const data = await handleResponse(response);
-  // Handle the new response format
-  return data.events || data.data || [];
+    const data = await handleResponse(response);
+
+    // Handle the new response format
+    if (data && data.data && data.data.events && Array.isArray(data.data.events)) {
+      // This is the structure we're seeing in the console logs
+      return data.data.events;
+    } else if (data && data.events && Array.isArray(data.events)) {
+      return data.events;
+    } else if (data && Array.isArray(data.data)) {
+      return data.data;
+    } else if (Array.isArray(data)) {
+      return data;
+    } else if (data && typeof data === 'object' && !data.data && !data.events) {
+      // If it's a single event object
+      return [data];
+    }
+
+    // If we can't determine the structure, return the raw data for the component to handle
+    return data;
+  } catch (error) {
+    console.error('Error in getUserEvents:', error);
+    return [];
+  }
 };
 
 // Admin functions

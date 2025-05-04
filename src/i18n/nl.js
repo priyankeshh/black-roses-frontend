@@ -171,6 +171,33 @@ export default {
     passwordsDoNotMatch: 'Wachtwoorden komen niet overeen',
     genericError: 'Registratie mislukt. Probeer het opnieuw.'
   },
+  profile: {
+    title: 'Mijn Profiel',
+    name: 'Volledige Naam',
+    email: 'E-mailadres',
+    editProfile: 'Profiel Bewerken',
+    changePassword: 'Wachtwoord Wijzigen',
+    currentPassword: 'Huidig Wachtwoord',
+    newPassword: 'Nieuw Wachtwoord',
+    confirmPassword: 'Bevestig Wachtwoord',
+    save: 'Wijzigingen Opslaan',
+    cancel: 'Annuleren',
+    updateSuccess: 'Profiel succesvol bijgewerkt!',
+    updateError: 'Profiel bijwerken mislukt. Probeer het opnieuw.',
+    passwordUpdateSuccess: 'Wachtwoord succesvol bijgewerkt!',
+    passwordUpdateError: 'Wachtwoord bijwerken mislukt. Probeer het opnieuw.',
+    passwordsDoNotMatch: 'Nieuw wachtwoord en bevestiging komen niet overeen',
+    imageUploadSuccess: 'Profielfoto succesvol geüpload!',
+    imageUploadError: 'Profielfoto uploaden mislukt. Probeer het opnieuw.',
+    myEvents: 'Mijn Evenementen',
+    noEvents: 'Je hebt je nog niet aangemeld voor evenementen.',
+    notLoggedIn: 'Log in om je profiel te bekijken.',
+    role: {
+      user: 'Lid',
+      admin: 'Beheerder',
+      superAdmin: 'Super Beheerder'
+    }
+  },
   notFound: {
     title: 'Pagina Niet Gevonden',
     message: 'De pagina die je zoekt bestaat niet of is verplaatst.',
