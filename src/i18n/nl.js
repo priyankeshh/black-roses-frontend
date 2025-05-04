@@ -96,14 +96,21 @@ export default {
     noEvents: 'Geen evenementen gevonden',
     fetchError: 'Kan evenementen niet laden. Probeer het opnieuw.',
     manageEvents: 'Evenementen Beheren',
+    manageUsers: 'Gebruikers Beheren',
     registrations: 'Registraties',
     total: 'Totaal',
     name: 'Naam',
     email: 'E-mail',
+    phone: 'Telefoon',
     team: 'Team',
     status: 'Status',
     registeredAt: 'Geregistreerd Op',
     actions: 'Acties',
+    confirm: 'Bevestigen',
+    cancel: 'Annuleren',
+    noRegistrations: 'Nog geen registraties voor dit evenement.',
+    contactInfo: 'Contactinformatie',
+    additionalInfo: 'Aanvullende Informatie',
     manageAdmins: 'Beheerders Beheren',
     addAdmin: 'Beheerder Toevoegen',
     removeAdmin: 'Beheerder Verwijderen',
@@ -113,7 +120,23 @@ export default {
     adminAdded: 'Beheerder succesvol toegevoegd',
     adminRemoved: 'Beheerder succesvol verwijderd',
     adminError: 'Fout bij het beheren van beheerder',
-    confirmRemoveAdmin: 'Weet je zeker dat je deze beheerder wilt verwijderen?'
+    confirmRemoveAdmin: 'Weet je zeker dat je deze beheerder wilt verwijderen?',
+    usersList: 'Gebruikerslijst',
+    addNewAdmin: 'Nieuwe Beheerder Toevoegen',
+    password: 'Wachtwoord',
+    role: 'Rol',
+    userAdded: 'Beheerder succesvol toegevoegd!',
+    addError: 'Fout bij het toevoegen van beheerder. Probeer het opnieuw.',
+    confirmDeleteUser: 'Weet je zeker dat je deze gebruiker wilt verwijderen?',
+    promoteToAdmin: 'Promoveren tot Beheerder',
+    demoteToUser: 'Degraderen tot Gebruiker',
+    deleteUser: 'Gebruiker Verwijderen',
+    lastAdminError: 'Kan de laatste beheerder niet degraderen. Promoveer eerst een andere gebruiker tot beheerder.',
+    status: {
+      pending: 'In Afwachting',
+      confirmed: 'Bevestigd',
+      cancelled: 'Geannuleerd'
+    }
   },
   footer: {
     rights: 'Alle rechten voorbehouden',
@@ -155,6 +178,8 @@ export default {
     delete: 'Verwijderen',
     confirm: 'Bevestigen',
     success: 'Succes',
-    error: 'Fout'
+    error: 'Fout',
+    yes: 'Ja',
+    no: 'Nee'
   }
 };

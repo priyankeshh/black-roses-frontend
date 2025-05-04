@@ -313,13 +313,13 @@ export const updateEvent = async (eventId, eventData) => {
 
 // Update registration status
 export const updateRegistrationStatus = async (eventId, registrationId, status) => {
-  const response = await fetch(`${API_URL}/events/${eventId}/registrations/${registrationId}`, {
+  const response = await fetch(`${API_URL}/events/${eventId}/registrations/${status}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       ...authHeader()
     },
-    body: JSON.stringify({ status })
+    body: JSON.stringify({ registrationId })
   });
 
   const data = await handleResponse(response);

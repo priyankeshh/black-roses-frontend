@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Check, X, Mail, Phone, User, Users } from 'lucide-react';
+import { Check, X, Mail, Phone, User } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
@@ -50,7 +50,7 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
           </span>
         </div>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -62,7 +62,7 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                 {t('admin.email')}
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {t('admin.team')}
+                {t('admin.phone')}
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {t('admin.status')}
@@ -78,7 +78,7 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
           <tbody className="bg-white divide-y divide-gray-200">
             {event.registrations.map((registration, index) => (
               <React.Fragment key={registration._id || index}>
-                <tr 
+                <tr
                   className={cn(
                     "hover:bg-gray-50 cursor-pointer",
                     expandedRow === index && "bg-gray-50"
@@ -99,8 +99,8 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <Users size={16} className="mr-2 text-gray-400" />
-                      <div className="text-sm text-gray-500">{registration.teamName || '-'}</div>
+                      <Phone size={16} className="mr-2 text-gray-400" />
+                      <div className="text-sm text-gray-500">{registration.phone || '-'}</div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -119,7 +119,7 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        onUpdateStatus(registration._id, 'confirmed');
+                        onUpdateStatus(event._id, registration._id, 'confirmed');
                       }}
                       className="text-green-600 hover:text-green-900 mr-3"
                       title={t('admin.confirm')}
@@ -129,7 +129,7 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        onUpdateStatus(registration._id, 'cancelled');
+                        onUpdateStatus(event._id, registration._id, 'cancelled');
                       }}
                       className="text-red-600 hover:text-red-900"
                       title={t('admin.cancel')}
@@ -152,7 +152,8 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                           </div>
                           <div>
                             <p className="font-semibold mb-1">{t('admin.additionalInfo')}</p>
-                            <p><span className="font-medium">{t('admin.team')}:</span> {registration.teamName || '-'}</p>
+                            <p><span className="font-medium">{t('admin.gear')}:</span> {registration.gear || '-'}</p>
+                            <p><span className="font-medium">{t('admin.wantsFood')}:</span> {registration.wantsFood ? t('common.yes') : t('common.no')}</p>
                             <p><span className="font-medium">{t('admin.registeredAt')}:</span> {formatDate(registration.registeredAt)}</p>
                           </div>
                         </div>

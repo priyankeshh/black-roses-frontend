@@ -111,6 +111,8 @@ export default {
     contactInfo: 'Contact Information',
     phone: 'Phone',
     additionalInfo: 'Additional Information',
+    gear: 'Gear Type',
+    wantsFood: 'Wants Food',
     manageAdmins: 'Manage Admins',
     addAdmin: 'Add Admin',
     removeAdmin: 'Remove Admin',
@@ -178,6 +180,8 @@ export default {
     delete: 'Delete',
     confirm: 'Confirm',
     success: 'Success',
-    error: 'Error'
+    error: 'Error',
+    yes: 'Yes',
+    no: 'No'
   }
 };
