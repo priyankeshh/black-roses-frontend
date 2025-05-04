@@ -65,7 +65,7 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                 {t('admin.phone')}
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                {t('admin.status')}
+                {t('admin.statusLabel')}
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 {t('admin.registeredAt')}
@@ -108,7 +108,6 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                       "px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full",
                       getStatusBadgeClass(registration.status)
                     )}>
-                      {console.log("t(`admin.status.${registration.status}`):", t(`admin.status.${registration.status}`))}
                       {t(`admin.status.${registration.status}`)}
                     </span>
                   </td>

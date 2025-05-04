@@ -132,6 +132,7 @@ export default {
     demoteToUser: 'Degraderen tot Gebruiker',
     deleteUser: 'Gebruiker Verwijderen',
     lastAdminError: 'Kan de laatste beheerder niet degraderen. Promoveer eerst een andere gebruiker tot beheerder.',
+    statusLabel: 'Status',
     status: {
       pending: 'In Afwachting',
       confirmed: 'Bevestigd',

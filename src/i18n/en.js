@@ -134,6 +134,7 @@ export default {
     demoteToUser: 'Demote to User',
     deleteUser: 'Delete User',
     lastAdminError: 'Cannot demote the last admin user. Promote another user to admin first.',
+    statusLabel: 'Status',
     status: {
       pending: 'Pending',
       confirmed: 'Confirmed',
