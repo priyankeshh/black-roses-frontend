@@ -30,10 +30,13 @@ const AdminEventManager = () => {
       setLoading(true);
       setError(null);
       const eventsData = await getEvents();
-      
+
+      // Make sure eventsData is an array
+      const eventsArray = Array.isArray(eventsData) ? eventsData : [];
+
       // Update event status based on date
       const now = new Date();
-      const updatedEvents = eventsData.map(event => {
+      const updatedEvents = eventsArray.map(event => {
         const eventDate = new Date(event.eventDate);
         let status = event.status;
 
@@ -52,12 +55,12 @@ const AdminEventManager = () => {
 
         return { ...event, status };
       });
-      
+
       // Sort events by date (newest first)
-      const sortedEvents = [...updatedEvents].sort((a, b) => 
+      const sortedEvents = [...updatedEvents].sort((a, b) =>
         new Date(b.eventDate) - new Date(a.eventDate)
       );
-      
+
       setEvents(sortedEvents);
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -161,10 +164,10 @@ const AdminEventManager = () => {
   return (
     <div>
       <h2 className="text-2xl font-bold mb-6">{t('admin.manageEvents')}</h2>
-      
+
       {events.map((event) => (
         <div key={event._id} className="bg-white rounded-lg shadow-md overflow-hidden mb-4">
-          <div 
+          <div
             className={cn(
               "p-6 cursor-pointer",
               expandedEvent === event._id ? "border-b border-gray-200" : ""

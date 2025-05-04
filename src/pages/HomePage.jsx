@@ -19,14 +19,17 @@ const HomePage = () => {
         setLoading(true);
         const events = await getEvents();
 
-        if (events && events.length > 0) {
+        // Make sure events is an array
+        const eventsArray = Array.isArray(events) ? events : [];
+
+        if (eventsArray.length > 0) {
           const now = new Date();
           const oneMonthAgo = new Date();
           oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
           // Filter events
-          const upcoming = events.filter(event => new Date(event.eventDate) >= now);
-          const recent = events.filter(event => {
+          const upcoming = eventsArray.filter(event => new Date(event.eventDate) >= now);
+          const recent = eventsArray.filter(event => {
             const eventDate = new Date(event.eventDate);
             return eventDate < now && eventDate >= oneMonthAgo;
           });
@@ -46,9 +49,9 @@ const HomePage = () => {
 
           if (sortedUpcoming.length > 0) {
             setLatestEvent(sortedUpcoming[0]);
-          } else if (events.length > 0) {
+          } else if (eventsArray.length > 0) {
             // If no upcoming events, use the most recent past event
-            setLatestEvent(events[0]);
+            setLatestEvent(eventsArray[0]);
           }
 
           setAllEvents(combined);
@@ -163,10 +166,6 @@ const HomePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl font-bold mb-2">
-                {console.log("t('home.upcomingEvents'):", t('home.upcomingEvents'))}
-                {t('home.upcomingEvents')}
-              </h2>
               <div className="w-24 h-1 bg-teal-500 mx-auto"></div>
             </motion.div>
 

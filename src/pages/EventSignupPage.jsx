@@ -35,7 +35,13 @@ const EventSignupPage = () => {
         const data = await getEventById(actualEventId);
 
         if (data) {
-          setEvent(data);
+          // Make sure data is an object with the required fields
+          if (data._id && data.title && data.eventDate) {
+            setEvent(data);
+          } else {
+            console.error('Invalid event data format:', data);
+            navigate('/events');
+          }
         } else {
           navigate('/events');
         }

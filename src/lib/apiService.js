@@ -8,7 +8,6 @@ const API_URL = 'http://localhost:5000/api';
 const handleResponse = async (response) => {
   try {
     const data = await response.json();
-    console.log(`API Response [${response.status}]:`, data);
 
     if (!response.ok) {
       // Check if token is expired
@@ -22,14 +21,12 @@ const handleResponse = async (response) => {
       }
 
       const errorMessage = data.error || 'Something went wrong';
-      console.error(`API Error [${response.status}]:`, errorMessage);
       throw new Error(errorMessage);
     }
 
     return data;
   } catch (error) {
-    console.error('Error parsing API response:', error);
-    throw new Error('Failed to process server response');
+    throw new Error(error.message || 'Failed to process server response');
   }
 };
 
@@ -100,19 +97,19 @@ const retryRequest = async (url, method, body) => {
 export const getEvents = async () => {
   const response = await fetch(`${API_URL}/events`);
   const data = await handleResponse(response);
-  return data.data;
+  // Handle the new response format which has events inside an object
+  return data.events || (data.data && data.data.events) || data.data || [];
 };
 
 export const getEventById = async (id) => {
   const response = await fetch(`${API_URL}/events/${id}`);
   const data = await handleResponse(response);
-  return data.data;
+  // Handle the new response format
+  return data.data || data;
 };
 
 export const createEvent = async (eventData) => {
   try {
-    console.log('API Service - Creating event with data:', eventData);
-
     const response = await fetch(`${API_URL}/events`, {
       method: 'POST',
       headers: {
@@ -123,18 +120,15 @@ export const createEvent = async (eventData) => {
     });
 
     const data = await handleResponse(response);
-    console.log('API Service - Event creation response:', data);
-    return { success: true, data: data.data };
+    // Handle the new response format
+    return { success: true, data: data.data || data };
   } catch (error) {
-    console.error('API Service - Error creating event:', error);
     throw error;
   }
 };
 
 export const registerForEvent = async (eventId, registrationData) => {
   try {
-    console.log('Registering for event:', eventId, 'with data:', registrationData);
-
     const response = await fetch(`${API_URL}/events/${eventId}/register`, {
       method: 'POST',
       headers: {
@@ -144,10 +138,9 @@ export const registerForEvent = async (eventId, registrationData) => {
     });
 
     const data = await handleResponse(response);
-    console.log('Registration response:', data);
-    return { success: true, data: data.data };
+    // Handle the new response format
+    return { success: true, data: data.data || data };
   } catch (error) {
-    console.error('Error registering for event:', error);
     throw error;
   }
 };
@@ -245,7 +238,8 @@ export const getUserEvents = async () => {
   });
 
   const data = await handleResponse(response);
-  return data.data;
+  // Handle the new response format
+  return data.events || data.data || [];
 };
 
 // Admin functions
@@ -255,7 +249,8 @@ export const getUsers = async () => {
   });
 
   const data = await handleResponse(response);
-  return data.data;
+  // Handle the new response format
+  return data.users || data.data || [];
 };
 
 export const createAdminUser = async (userData) => {
@@ -308,7 +303,8 @@ export const updateEvent = async (eventId, eventData) => {
   });
 
   const data = await handleResponse(response);
-  return data.data;
+  // Handle the new response format
+  return data.data || data;
 };
 
 // Update registration status
@@ -323,7 +319,8 @@ export const updateRegistrationStatus = async (eventId, registrationId, status) 
   });
 
   const data = await handleResponse(response);
-  return data.data;
+  // Handle the new response format
+  return data.data || data;
 };
 
 export const deleteEvent = async (eventId) => {
@@ -333,14 +330,13 @@ export const deleteEvent = async (eventId) => {
   });
 
   const data = await handleResponse(response);
-  return data;
+  // Handle the new response format
+  return data.success || (data && true);
 };
 
 // File upload functions
 export const uploadImage = async (file, type = 'event') => {
   try {
-    console.log(`Uploading ${type} image:`, file.name);
-
     const formData = new FormData();
     formData.append('image', file);
 
@@ -354,10 +350,9 @@ export const uploadImage = async (file, type = 'event') => {
     });
 
     const data = await handleResponse(response);
-    console.log('Upload response:', data);
-    return data.data;
+    // Handle the new response format
+    return data.data || data;
   } catch (error) {
-    console.error('Error uploading image:', error);
     throw error;
   }
 };

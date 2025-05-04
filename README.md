@@ -80,12 +80,15 @@ The backend exposes the following API endpoints:
   - `DELETE /api/events/:id` - Delete an event (admin only)
   - `POST /api/events/:id/register` - Register for an event
 
+<!-- Shop functionality has been removed as per requirements -->
+<!--
 - **Products**
   - `GET /api/products` - Get all products
   - `GET /api/products/:id` - Get a specific product
   - `POST /api/products` - Create a new product (admin only)
   - `PUT /api/products/:id` - Update a product (admin only)
   - `DELETE /api/products/:id` - Delete a product (admin only)
+-->
 
 - **Contact**
   - `POST /api/contact` - Submit a contact form
@@ -101,6 +104,8 @@ npm install
 npm run dev
 ```
 
+The frontend will be available at http://localhost:5173
+
 ### Backend
 
 ```bash
@@ -108,4 +113,23 @@ cd server
 npm install
 npm run dev
 ```
+
+The backend API will be available at http://localhost:5000
+
+### Environment Setup
+
+1. Create a `.env` file in the server directory based on the `.env.example` file
+2. Set up MongoDB connection string
+3. Configure JWT secrets
+4. Set up Cloudinary for image uploads
+5. Configure Gmail for sending emails (see NodemailerSetupGuide.md)
+
+### Email Functionality
+
+The application includes three email features:
+1. Welcome emails for new user registrations
+2. Event registration confirmation emails
+3. Contact form submission forwarding to admin emails
+
+See the NodemailerSetupGuide.md file in the server directory for detailed setup instructions.
 

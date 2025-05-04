@@ -18,8 +18,11 @@ const EventsPage = () => {
         const data = await getEvents({ upcoming: true });
 
         if (data) {
+          // Make sure data is an array
+          const eventsArray = Array.isArray(data) ? data : [];
+
           // Sort events by date (ascending)
-          const sortedEvents = [...data].sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
+          const sortedEvents = [...eventsArray].sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
           setEvents(sortedEvents);
         }
       } catch (error) {
