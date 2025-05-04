@@ -17,7 +17,10 @@ export default {
     latestEvent: 'Latest Event',
     noEvents: 'No upcoming events',
     readMore: 'Read More',
-    upcomingEvents: 'Upcoming Events'
+    upcomingEvents: 'Upcoming Events',
+    teamTitle: 'Black Roses Airsoft Team',
+    teamDescription: 'Join one of the most elite airsoft teams in Belgium. We focus on tactical gameplay, teamwork, and sportsmanship.',
+    joinTeam: 'Join Our Team'
   },
   events: {
     title: 'Upcoming Events',
@@ -54,7 +57,9 @@ export default {
     wantsFood: 'I want food',
     submit: 'Submit Registration',
     success: 'Registration successful! We look forward to seeing you at the event.',
-    error: 'There was an error with your registration. Please try again.'
+    error: 'There was an error with your registration. Please try again.',
+    alreadyRegistered: 'You have already signed up for this event!',
+    emailAlreadyRegistered: 'This email is already registered for this event.'
   },
   shop: {
     title: 'Team Shop',

@@ -107,10 +107,17 @@ const HomePage = () => {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <div
-                className="h-64 bg-cover bg-center"
-                style={{ backgroundImage: `url('${latestEvent.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')` }}
-              ></div>
+              <div className="h-64 relative overflow-hidden">
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: `url('${latestEvent.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')`,
+                    backgroundPosition: 'center center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat'
+                  }}
+                ></div>
+              </div>
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-3">{latestEvent.title}</h3>
                 <p className="text-gray-700 mb-4">{latestEvent.description}</p>
@@ -166,6 +173,7 @@ const HomePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
+              <h2 className="text-3xl font-bold mb-2">{t('home.upcomingEvents')}</h2>
               <div className="w-24 h-1 bg-teal-500 mx-auto"></div>
             </motion.div>
 
@@ -197,7 +205,7 @@ const HomePage = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Black Roses Airsoft Team
+              {t('home.teamTitle')}
             </motion.h2>
             <motion.p
               className="text-lg mb-8"
@@ -206,7 +214,7 @@ const HomePage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              Join one of the most elite airsoft teams in the Belgium. We focus on tactical gameplay, teamwork, and sportsmanship.
+              {t('home.teamDescription')}
             </motion.p>
             <motion.div
               initial={{ opacity: 0 }}
@@ -218,7 +226,7 @@ const HomePage = () => {
                 to="/contact"
                 className="inline-block px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded transition-colors"
               >
-                Join Our Team
+                {t('home.joinTeam')}
               </Link>
             </motion.div>
           </div>

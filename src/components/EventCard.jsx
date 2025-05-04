@@ -26,8 +26,13 @@ const EventCard = ({ event }) => {
     )}>
       <div className="h-48 relative overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${event.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')` }}
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url('${event.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')`,
+            backgroundPosition: 'center center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+          }}
         ></div>
         {event.status && (
           <div className={cn(

@@ -38,11 +38,12 @@ const AlternatingEventCard = ({ event, index }) => {
           )}
         >
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0"
             style={{
               backgroundImage: `url('${event.imageUrl || 'https://images.pexels.com/photos/7861965/pexels-photo-7861965.jpeg'}')`,
               backgroundPosition: 'center center',
-              backgroundSize: 'cover'
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat'
             }}
           ></div>
           {event.status && (

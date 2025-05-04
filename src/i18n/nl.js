@@ -17,7 +17,10 @@ export default {
     latestEvent: 'Laatste Evenement',
     noEvents: 'Geen aankomende evenementen',
     readMore: 'Lees Meer',
-    upcomingEvents: 'Aankomende Evenementen'
+    upcomingEvents: 'Aankomende Evenementen',
+    teamTitle: 'Black Roses Airsoft Team',
+    teamDescription: 'Word lid van een van de meest elite airsoft teams in België. We richten ons op tactisch spel, teamwerk en sportiviteit.',
+    joinTeam: 'Word Lid van Ons Team'
   },
   events: {
     title: 'Aankomende Evenementen',
@@ -54,7 +57,9 @@ export default {
     wantsFood: 'Ik wil eten',
     submit: 'Registratie Indienen',
     success: 'Registratie succesvol! We kijken ernaar uit je op het evenement te zien.',
-    error: 'Er is een fout opgetreden bij je registratie. Probeer het opnieuw.'
+    error: 'Er is een fout opgetreden bij je registratie. Probeer het opnieuw.',
+    alreadyRegistered: 'Je hebt je al aangemeld voor dit evenement!',
+    emailAlreadyRegistered: 'Dit e-mailadres is al geregistreerd voor dit evenement.'
   },
   shop: {
     title: 'Team Winkel',
