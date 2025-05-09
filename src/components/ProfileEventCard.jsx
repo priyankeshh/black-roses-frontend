@@ -6,19 +6,19 @@ import { cn } from '../lib/utils';
 
 const ProfileEventCard = ({ event }) => {
   const { t } = useTranslation();
-  
+
   // Check if event is valid
   if (!event || typeof event !== 'object') {
     console.error('Invalid event object:', event);
     return <div className="p-4 bg-red-100 text-red-800 rounded">Invalid event data</div>;
   }
-  
+
   // Handle nested event structure
   const actualEvent = event.data && event.data.events && event.data.events[0] ? event.data.events[0] : event;
-  
+
   // Ensure we have a valid ID (handle both _id and id)
   const eventId = actualEvent._id || actualEvent.id;
-  
+
   // Format date from ISO string
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -49,9 +49,9 @@ const ProfileEventCard = ({ event }) => {
           </span>
         )}
       </div>
-      
+
       <p className="text-gray-600 text-sm mb-3 line-clamp-2">{actualEvent.description}</p>
-      
+
       <div className="space-y-1 mb-4 text-sm">
         <div className="flex items-center text-gray-600">
           <Calendar size={16} className="mr-2 text-teal-600" />
@@ -65,8 +65,22 @@ const ProfileEventCard = ({ event }) => {
           <MapPin size={16} className="mr-2 text-teal-600" />
           <span>{actualEvent.location}</span>
         </div>
+
+        {/* Registration Status */}
+        {actualEvent.userRegistration && (
+          <div className="mt-2 pt-2 border-t border-gray-200">
+            <div className="flex items-center">
+              <span className="text-xs font-medium px-2 py-1 rounded-full bg-teal-100 text-teal-800 mr-2">
+                {t(`eventSignup.status.${actualEvent.userRegistration.status}`) || actualEvent.userRegistration.status}
+              </span>
+              <span className="text-xs text-gray-500">
+                {t('profile.registeredOn')}: {formatDate(actualEvent.userRegistration.registeredAt)}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
-      
+
       <div className="flex justify-end">
         <Link
           to={`/events/${eventId}`}

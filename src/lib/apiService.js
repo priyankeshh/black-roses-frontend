@@ -147,7 +147,11 @@ export const checkEventRegistration = async (eventId, email) => {
 
 export const registerForEvent = async (eventId, registrationData) => {
   try {
-    const response = await fetch(`${API_URL}/events/${eventId}/register`, {
+    // Extract just the ID part before any dash
+    const cleanEventId = eventId.split('-')[0];
+    console.log('Registering for event with ID:', cleanEventId);
+
+    const response = await fetch(`${API_URL}/events/${cleanEventId}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -159,6 +163,7 @@ export const registerForEvent = async (eventId, registrationData) => {
     // Handle the new response format
     return { success: true, data: data.data || data };
   } catch (error) {
+    console.error('Error in registerForEvent:', error);
     throw error;
   }
 };

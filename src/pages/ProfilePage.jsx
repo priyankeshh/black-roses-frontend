@@ -423,9 +423,9 @@ const ProfilePage = () => {
                 <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
               </div>
             ) : userEvents.length > 0 ? (
-              <div className="space-y-6">
+              <div className="grid gap-4">
                 {userEvents.map(event => (
-                  <EventCard key={event._id || event.id} event={event} />
+                  <ProfileEventCard key={event._id || event.id} event={event} />
                 ))}
               </div>
             ) : (

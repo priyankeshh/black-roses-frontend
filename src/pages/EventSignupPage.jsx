@@ -92,7 +92,7 @@ const EventSignupPage = () => {
         return;
       }
 
-      const result = await registerForEvent(eventId, formData);
+      const result = await registerForEvent(actualEventId, formData);
       if (result.success) {
         setFormStatus('success');
         // Redirect to home page after 3 seconds
@@ -135,15 +135,15 @@ const EventSignupPage = () => {
               <p className="text-gray-700 mb-3">{event.description}</p>
               <div className="space-y-2 mb-4">
                 <div className="flex items-center text-gray-800">
-                  <Calendar size={18} className="mr-2 text-primary" />
+                  <Calendar size={18} className="mr-2 text-teal-600" />
                   <span>{new Date(event.eventDate).toLocaleDateString()}</span>
                 </div>
                 <div className="flex items-center text-gray-800">
-                  <Clock size={18} className="mr-2 text-primary" />
+                  <Clock size={18} className="mr-2 text-teal-600" />
                   <span>{event.time}</span>
                 </div>
                 <div className="flex items-center text-gray-800">
-                  <MapPin size={18} className="mr-2 text-primary" />
+                  <MapPin size={18} className="mr-2 text-teal-600" />
                   <span>{event.location}</span>
                 </div>
               </div>
