@@ -9,7 +9,7 @@ const ProfileEventCard = ({ event }) => {
 
   // Check if event is valid
   if (!event || typeof event !== 'object') {
-    console.error('Invalid event object:', event);
+    // Invalid event object
     return <div className="p-4 bg-red-100 text-red-800 rounded">Invalid event data</div>;
   }
 

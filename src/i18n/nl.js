@@ -59,7 +59,12 @@ export default {
     success: 'Registratie succesvol! We kijken ernaar uit je op het evenement te zien.',
     error: 'Er is een fout opgetreden bij je registratie. Probeer het opnieuw.',
     alreadyRegistered: 'Je hebt je al aangemeld voor dit evenement!',
-    emailAlreadyRegistered: 'Dit e-mailadres is al geregistreerd voor dit evenement.'
+    emailAlreadyRegistered: 'Dit e-mailadres is al geregistreerd voor dit evenement.',
+    status: {
+      pending: 'In Afwachting',
+      confirmed: 'Bevestigd',
+      cancelled: 'Geannuleerd'
+    }
   },
   shop: {
     title: 'Team Winkel',
@@ -192,6 +197,7 @@ export default {
     myEvents: 'Mijn Evenementen',
     noEvents: 'Je hebt je nog niet aangemeld voor evenementen.',
     notLoggedIn: 'Log in om je profiel te bekijken.',
+    registeredOn: 'Geregistreerd op',
     role: {
       user: 'Lid',
       admin: 'Beheerder',

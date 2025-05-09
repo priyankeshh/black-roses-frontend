@@ -44,12 +44,7 @@ const ProfilePage = () => {
     try {
       setLoading(true);
       const events = await getUserEvents();
-      console.log('Received events from API:', events);
-
-      // Log the first event to see its structure
-      if (events && events.length > 0) {
-        console.log('First event structure:', JSON.stringify(events[0], null, 2));
-      }
+      // Events received from API
 
       // Handle different data structures that might come from the API
       let eventsArray = [];
@@ -66,7 +61,7 @@ const ProfilePage = () => {
         eventsArray = [events];
       }
 
-      console.log('Setting user events:', eventsArray);
+      // Set user events
       setUserEvents(eventsArray);
     } catch (error) {
       console.error('Error fetching user events:', error);
@@ -217,7 +212,7 @@ const ProfilePage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 mt-20 min-h-screen text-gray-800">
-      <h1 className="text-3xl font-bold mb-8 text-gray-900">{t('profile.title')}</h1>
+      <h1 className="text-3xl font-bold mb-8 text-white">{t('profile.title')}</h1>
 
       {message.text && (
         <div className={cn(

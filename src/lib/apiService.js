@@ -298,7 +298,7 @@ export const getUserEvents = async () => {
     });
 
     const data = await handleResponse(response);
-    console.log('Raw API response from getUserEvents:', data);
+    // Process API response
 
     // Handle the new response format
     if (data && data.data && data.data.events && Array.isArray(data.data.events)) {

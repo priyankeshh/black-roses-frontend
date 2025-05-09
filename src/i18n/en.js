@@ -59,7 +59,12 @@ export default {
     success: 'Registration successful! We look forward to seeing you at the event.',
     error: 'There was an error with your registration. Please try again.',
     alreadyRegistered: 'You have already signed up for this event!',
-    emailAlreadyRegistered: 'This email is already registered for this event.'
+    emailAlreadyRegistered: 'This email is already registered for this event.',
+    status: {
+      pending: 'Pending',
+      confirmed: 'Confirmed',
+      cancelled: 'Cancelled'
+    }
   },
   shop: {
     title: 'Team Shop',
@@ -194,6 +199,7 @@ export default {
     myEvents: 'My Events',
     noEvents: 'You have not registered for any events yet.',
     notLoggedIn: 'Please log in to view your profile.',
+    registeredOn: 'Registered on',
     role: {
       user: 'Member',
       admin: 'Administrator',
