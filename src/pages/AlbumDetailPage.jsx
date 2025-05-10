@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { 
-  ArrowLeft, 
-  Trash2, 
-  Upload, 
-  Youtube, 
-  Calendar, 
-  User, 
+import {
+  ArrowLeft,
+  Trash2,
+  Upload,
+  Youtube,
+  Calendar,
+  User,
   Clock,
   Image as ImageIcon,
   Check
 } from 'lucide-react';
-import { 
-  getAlbumById, 
-  uploadAlbumImages, 
-  deleteAlbumImage, 
-  addYouTubeVideo, 
+import {
+  getAlbumById,
+  uploadAlbumImages,
+  deleteAlbumImage,
+  addYouTubeVideo,
   deleteAlbumVideo,
   updateAlbum,
   deleteAlbum
@@ -31,7 +31,7 @@ const AlbumDetailPage = () => {
   const { t } = useTranslation();
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
-  
+
   const [album, setAlbum] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,6 +41,9 @@ const AlbumDetailPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [dragActive, setDragActive] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [totalFiles, setTotalFiles] = useState(0);
+  const [uploadedFiles, setUploadedFiles] = useState(0);
 
   useEffect(() => {
     const fetchAlbum = async () => {
@@ -63,7 +66,7 @@ const AlbumDetailPage = () => {
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (e.type === 'dragenter' || e.type === 'dragover') {
       setDragActive(true);
     } else if (e.type === 'dragleave') {
@@ -75,7 +78,7 @@ const AlbumDetailPage = () => {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       setSelectedFiles(Array.from(e.dataTransfer.files));
     }
@@ -89,27 +92,50 @@ const AlbumDetailPage = () => {
 
   const handleUpload = async () => {
     if (selectedFiles.length === 0) return;
-    
+
     setUploadLoading(true);
+    setUploadProgress(0);
+    setTotalFiles(selectedFiles.length);
+    setUploadedFiles(0);
+
     try {
-      await uploadAlbumImages(id, selectedFiles);
+      // Process files in batches of 5
+      const BATCH_SIZE = 5;
+      const filesToUpload = [...selectedFiles];
+      let successfulUploads = 0;
+
+      while (filesToUpload.length > 0) {
+        const batch = filesToUpload.splice(0, BATCH_SIZE);
+
+        // Upload this batch
+        await uploadAlbumImages(id, batch);
+
+        // Update progress
+        successfulUploads += batch.length;
+        setUploadedFiles(successfulUploads);
+        setUploadProgress(Math.round((successfulUploads / selectedFiles.length) * 100));
+      }
+
       // Refresh album data
       const updatedAlbum = await getAlbumById(id);
       setAlbum(updatedAlbum);
       setSelectedFiles([]);
-      setSuccessMessage(t('albums.imageAdded'));
+      setSuccessMessage(t('albums.imagesAdded', { count: successfulUploads }));
       setTimeout(() => setSuccessMessage(''), 3000);
     } catch (err) {
       console.error('Error uploading images:', err);
       setError(err.message || t('common.error'));
     } finally {
       setUploadLoading(false);
+      setUploadProgress(0);
+      setTotalFiles(0);
+      setUploadedFiles(0);
     }
   };
 
   const handleDeleteImage = async (imageId) => {
     if (!window.confirm(t('albums.deleteImageConfirm'))) return;
-    
+
     try {
       await deleteAlbumImage(id, imageId);
       // Refresh album data
@@ -125,7 +151,7 @@ const AlbumDetailPage = () => {
 
   const handleDeleteVideo = async (videoId) => {
     if (!window.confirm(t('albums.deleteVideoConfirm'))) return;
-    
+
     try {
       await deleteAlbumVideo(id, videoId);
       // Refresh album data
@@ -174,7 +200,7 @@ const AlbumDetailPage = () => {
 
   const handleDeleteAlbum = async () => {
     if (!window.confirm(t('albums.deleteAlbumConfirm'))) return;
-    
+
     try {
       await deleteAlbum(id);
       navigate('/albums');
@@ -193,10 +219,10 @@ const AlbumDetailPage = () => {
   // Extract YouTube video ID from URL
   const getYouTubeVideoId = (url) => {
     if (!url) return null;
-    
+
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
-    
+
     return (match && match[2].length === 11) ? match[2] : null;
   };
 
@@ -239,7 +265,7 @@ const AlbumDetailPage = () => {
           </Link>
           <h1 className="text-3xl font-bold">{album.title}</h1>
         </div>
-        
+
         {isAdmin() && (
           <div className="flex space-x-2 mt-4 md:mt-0">
             <button
@@ -283,11 +309,11 @@ const AlbumDetailPage = () => {
             <div className="flex space-x-4 text-sm">
               <div className="flex items-center">
                 <ImageIcon size={16} className="mr-1 text-blue-500" />
-                <span>{album.images ? album.images.length : 0} {t('albums.images')}</span>
+                <span className="text-gray-700">{album.images ? album.images.length : 0} {t('albums.images')}</span>
               </div>
               <div className="flex items-center">
                 <Youtube size={16} className="mr-1 text-red-500" />
-                <span>{album.videos ? album.videos.length : 0} {t('albums.videos')}</span>
+                <span className="text-gray-700">{album.videos ? album.videos.length : 0} {t('albums.videos')}</span>
               </div>
             </div>
           </div>
@@ -378,9 +404,26 @@ const AlbumDetailPage = () => {
                         uploadLoading && "opacity-70 cursor-not-allowed"
                       )}
                     >
-                      {uploadLoading ? t('albums.uploadingImages') : t('common.upload')}
+                      {uploadLoading
+                        ? `${t('albums.uploadingImages')} (${uploadedFiles}/${totalFiles})`
+                        : t('albums.uploadImages')
+                      }
                     </button>
                   </div>
+
+                  {uploadLoading && (
+                    <div className="mb-4">
+                      <div className="w-full bg-gray-200 rounded-full h-2.5 mb-1">
+                        <div
+                          className="bg-primary h-2.5 rounded-full"
+                          style={{ width: `${uploadProgress}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-xs text-gray-600 text-right">
+                        {uploadProgress}% {t('albums.complete')}
+                      </p>
+                    </div>
+                  )}
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
                     {selectedFiles.map((file, index) => (
                       <div key={index} className="relative h-20 bg-gray-100 rounded-md overflow-hidden">
@@ -465,7 +508,7 @@ const AlbumDetailPage = () => {
               {album.videos.map((video) => {
                 const videoId = getYouTubeVideoId(video.youtubeUrl);
                 if (!videoId) return null;
-                
+
                 return (
                   <div key={video._id} className="relative group">
                     <div className="aspect-video bg-gray-100 rounded-md overflow-hidden">

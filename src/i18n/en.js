@@ -244,13 +244,18 @@ export default {
     success: 'Success',
     error: 'Error',
     yes: 'Yes',
-    no: 'No'
+    no: 'No',
+    upload: 'Upload',
+    selected: 'selected',
+    loading: 'Loading...',
+    preview: 'Preview'
   },
   albums: {
     title: 'Albums',
     createAlbum: 'Create Album',
     editAlbum: 'Edit Album',
     deleteAlbum: 'Delete Album',
+    deleteAlbumConfirm: 'Are you sure you want to delete this album?',
     albumTitle: 'Album Title',
     description: 'Description',
     event: 'Related Event',
@@ -259,7 +264,9 @@ export default {
     createdAt: 'Created At',
     updatedAt: 'Updated At',
     images: 'Images',
+    image: 'Image',
     videos: 'Videos',
+    video: 'Video',
     uploadImages: 'Upload Images',
     addYouTubeVideo: 'Add YouTube Video',
     youtubeUrl: 'YouTube URL',
@@ -267,12 +274,14 @@ export default {
     dragDropImages: 'Drag and drop images here, or click to select files',
     uploadingImages: 'Uploading images...',
     noAlbums: 'No albums found',
+    notFound: 'Album not found',
     noMedia: 'No media in this album yet',
     deleteImageConfirm: 'Are you sure you want to delete this image?',
     deleteVideoConfirm: 'Are you sure you want to delete this video?',
     imageDeleted: 'Image deleted successfully',
     videoDeleted: 'Video deleted successfully',
     imageAdded: 'Image added successfully',
+    imagesAdded: '{{count}} images added successfully',
     videoAdded: 'Video added successfully',
     invalidYouTubeUrl: 'Invalid YouTube URL',
     mediaCount: 'Media Count',
@@ -280,6 +289,8 @@ export default {
     back: 'Back to Albums',
     coverImage: 'Cover Image',
     selectCoverImage: 'Select as Cover Image',
-    coverImageUpdated: 'Cover image updated successfully'
+    coverImageUpdated: 'Cover image updated successfully',
+    complete: 'complete',
+    fetchError: 'Error loading album data'
   }
 };

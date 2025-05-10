@@ -244,13 +244,18 @@ export default {
     success: 'Succes',
     error: 'Fout',
     yes: 'Ja',
-    no: 'Nee'
+    no: 'Nee',
+    upload: 'Uploaden',
+    selected: 'geselecteerd',
+    loading: 'Laden...',
+    preview: 'Voorbeeld'
   },
   albums: {
     title: 'Albums',
     createAlbum: 'Album Aanmaken',
     editAlbum: 'Album Bewerken',
     deleteAlbum: 'Album Verwijderen',
+    deleteAlbumConfirm: 'Weet je zeker dat je dit album wilt verwijderen?',
     albumTitle: 'Album Titel',
     description: 'Beschrijving',
     event: 'Gerelateerd Evenement',
@@ -259,7 +264,9 @@ export default {
     createdAt: 'Aangemaakt Op',
     updatedAt: 'Bijgewerkt Op',
     images: 'Afbeeldingen',
+    image: 'Afbeelding',
     videos: 'Video\'s',
+    video: 'Video',
     uploadImages: 'Afbeeldingen Uploaden',
     addYouTubeVideo: 'YouTube Video Toevoegen',
     youtubeUrl: 'YouTube URL',
@@ -267,12 +274,14 @@ export default {
     dragDropImages: 'Sleep afbeeldingen hierheen, of klik om bestanden te selecteren',
     uploadingImages: 'Afbeeldingen uploaden...',
     noAlbums: 'Geen albums gevonden',
+    notFound: 'Album niet gevonden',
     noMedia: 'Nog geen media in dit album',
     deleteImageConfirm: 'Weet je zeker dat je deze afbeelding wilt verwijderen?',
     deleteVideoConfirm: 'Weet je zeker dat je deze video wilt verwijderen?',
     imageDeleted: 'Afbeelding succesvol verwijderd',
     videoDeleted: 'Video succesvol verwijderd',
     imageAdded: 'Afbeelding succesvol toegevoegd',
+    imagesAdded: '{{count}} afbeeldingen succesvol toegevoegd',
     videoAdded: 'Video succesvol toegevoegd',
     invalidYouTubeUrl: 'Ongeldige YouTube URL',
     mediaCount: 'Aantal Media',
@@ -280,6 +289,8 @@ export default {
     back: 'Terug naar Albums',
     coverImage: 'Coverafbeelding',
     selectCoverImage: 'Selecteer als Coverafbeelding',
-    coverImageUpdated: 'Coverafbeelding succesvol bijgewerkt'
+    coverImageUpdated: 'Coverafbeelding succesvol bijgewerkt',
+    complete: 'voltooid',
+    fetchError: 'Fout bij het laden van albumgegevens'
   }
 };

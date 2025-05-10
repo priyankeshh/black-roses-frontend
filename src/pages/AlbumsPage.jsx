@@ -96,28 +96,28 @@ const AlbumsPage = () => {
                 {album.description && (
                   <p className="text-gray-600 mb-3 line-clamp-2">{album.description}</p>
                 )}
-                <div className="flex flex-wrap gap-3 text-sm text-gray-500">
+                <div className="flex flex-wrap gap-3 text-sm text-gray-600">
                   <div className="flex items-center">
-                    <Clock size={16} className="mr-1" />
+                    <Clock size={16} className="mr-1 text-gray-500" />
                     <span>{formatDate(album.createdAt)}</span>
                   </div>
                   <div className="flex items-center">
-                    <Image size={16} className="mr-1" />
-                    <span>{album.images ? album.images.length : 0}</span>
+                    <Image size={16} className="mr-1 text-blue-500" />
+                    <span>{album.images ? album.images.length : 0} {album.images && album.images.length === 1 ? t('albums.image') : t('albums.images')}</span>
                   </div>
                   <div className="flex items-center">
-                    <Film size={16} className="mr-1" />
-                    <span>{album.videos ? album.videos.length : 0}</span>
+                    <Film size={16} className="mr-1 text-red-500" />
+                    <span>{album.videos ? album.videos.length : 0} {album.videos && album.videos.length === 1 ? t('albums.video') : t('albums.videos')}</span>
                   </div>
                   {album.event && (
                     <div className="flex items-center">
-                      <Calendar size={16} className="mr-1" />
+                      <Calendar size={16} className="mr-1 text-green-500" />
                       <span className="truncate max-w-[100px]">{album.event.title}</span>
                     </div>
                   )}
                   {album.createdBy && (
                     <div className="flex items-center">
-                      <User size={16} className="mr-1" />
+                      <User size={16} className="mr-1 text-purple-500" />
                       <span className="truncate max-w-[100px]">{album.createdBy.name}</span>
                     </div>
                   )}
