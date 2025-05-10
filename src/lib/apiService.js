@@ -438,4 +438,153 @@ export const uploadImage = async (file, type = 'event') => {
   }
 };
 
+// Album functions
+export const getAlbums = async () => {
+  try {
+    const response = await fetch(`${API_URL}/albums`);
+    const data = await handleResponse(response);
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching albums:', error);
+    return [];
+  }
+};
 
+export const getAlbumById = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/albums/${id}`);
+    const data = await handleResponse(response);
+    return data.data || null;
+  } catch (error) {
+    console.error('Error fetching album:', error);
+    return null;
+  }
+};
+
+export const createAlbum = async (albumData) => {
+  try {
+    const response = await fetch(`${API_URL}/albums`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...authHeader()
+      },
+      body: JSON.stringify(albumData)
+    });
+
+    const data = await handleResponse(response);
+    return data.data || data;
+  } catch (error) {
+    console.error('Error creating album:', error);
+    throw error;
+  }
+};
+
+export const updateAlbum = async (id, albumData) => {
+  try {
+    const response = await fetch(`${API_URL}/albums/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...authHeader()
+      },
+      body: JSON.stringify(albumData)
+    });
+
+    const data = await handleResponse(response);
+    return data.data || data;
+  } catch (error) {
+    console.error('Error updating album:', error);
+    throw error;
+  }
+};
+
+export const deleteAlbum = async (id) => {
+  try {
+    const response = await fetch(`${API_URL}/albums/${id}`, {
+      method: 'DELETE',
+      headers: authHeader()
+    });
+
+    const data = await handleResponse(response);
+    return data.success || false;
+  } catch (error) {
+    console.error('Error deleting album:', error);
+    throw error;
+  }
+};
+
+export const uploadAlbumImages = async (albumId, files) => {
+  try {
+    const formData = new FormData();
+
+    // Append multiple files
+    for (let i = 0; i < files.length; i++) {
+      formData.append('images', files[i]);
+    }
+
+    const response = await fetch(`${API_URL}/albums/${albumId}/images`, {
+      method: 'POST',
+      headers: {
+        ...authHeader(),
+        // Don't set Content-Type here, it will be set automatically with the boundary
+      },
+      body: formData
+    });
+
+    const data = await handleResponse(response);
+    return data.data || data;
+  } catch (error) {
+    console.error('Error uploading album images:', error);
+    throw error;
+  }
+};
+
+export const deleteAlbumImage = async (albumId, imageId) => {
+  try {
+    const response = await fetch(`${API_URL}/albums/${albumId}/images/${imageId}`, {
+      method: 'DELETE',
+      headers: authHeader()
+    });
+
+    const data = await handleResponse(response);
+    return data.data || data;
+  } catch (error) {
+    console.error('Error deleting album image:', error);
+    throw error;
+  }
+};
+
+export const addYouTubeVideo = async (albumId, videoData) => {
+  try {
+    const response = await fetch(`${API_URL}/albums/${albumId}/videos`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...authHeader()
+      },
+      body: JSON.stringify(videoData)
+    });
+
+    const data = await handleResponse(response);
+    return data.data || data;
+  } catch (error) {
+    console.error('Error adding YouTube video:', error);
+    throw error;
+  }
+};
+
+export const deleteAlbumVideo = async (albumId, videoId) => {
+  try {
+    const response = await fetch(`${API_URL}/albums/${albumId}/videos/${videoId}`, {
+      method: 'DELETE',
+      headers: authHeader()
+    });
+
+    const data = await handleResponse(response);
+    return data.data || data;
+  } catch (error) {
+    console.error('Error deleting album video:', error);
+    throw error;
+  }
+};

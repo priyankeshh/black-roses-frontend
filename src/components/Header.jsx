@@ -64,6 +64,16 @@ const Header = () => {
             {t('navigation.contact')}
           </Link>
 
+          <Link
+            to="/albums"
+            className={cn(
+              "hover:text-primary transition-colors",
+              isActive('/albums') && "text-primary"
+            )}
+          >
+            {t('navigation.albums')}
+          </Link>
+
           {/* Admin link - only shown to admin users */}
           {isAdmin() && (
             <Link
@@ -171,6 +181,17 @@ const Header = () => {
               onClick={toggleMenu}
             >
               {t('navigation.contact')}
+            </Link>
+
+            <Link
+              to="/albums"
+              className={cn(
+                "py-2",
+                isActive('/albums') && "text-primary"
+              )}
+              onClick={toggleMenu}
+            >
+              {t('navigation.albums')}
             </Link>
 
             {/* Admin link - only shown to admin users */}

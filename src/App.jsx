@@ -13,6 +13,8 @@ import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import AlbumsPage from './pages/AlbumsPage';
+import AlbumDetailPage from './pages/AlbumDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -39,6 +41,8 @@ function App() {
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/albums" element={<AlbumsPage />} />
+                <Route path="/albums/:id" element={<AlbumDetailPage />} />
                 <Route
                   path="/profile"
                   element={
