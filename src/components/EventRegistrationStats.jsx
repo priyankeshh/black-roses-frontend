@@ -7,7 +7,7 @@ const EventRegistrationStats = ({ registrations }) => {
 
   // Calculate statistics
   const totalRegistrations = registrations.length;
-  
+
   // Status breakdown
   const statusCounts = {
     pending: registrations.filter(reg => reg.status === 'pending').length,
@@ -41,7 +41,7 @@ const EventRegistrationStats = ({ registrations }) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
       <h3 className="text-lg font-semibold mb-4">{t('admin.registrationStats')}</h3>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Registrations */}
         <div className="bg-gray-50 rounded-lg p-4 flex items-center">
@@ -50,7 +50,7 @@ const EventRegistrationStats = ({ registrations }) => {
           </div>
           <div>
             <p className="text-sm text-gray-500">{t('admin.total')}</p>
-            <p className="text-xl font-bold">{totalRegistrations}</p>
+            <p className="text-xl font-bold text-gray-800">{totalRegistrations}</p>
           </div>
         </div>
 
@@ -61,23 +61,23 @@ const EventRegistrationStats = ({ registrations }) => {
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <Clock size={16} className="text-yellow-500 mr-2" />
-                <span className="text-sm">{t('admin.status.pending')}</span>
+                <span className="text-sm text-gray-700">{t('admin.status.pending')}</span>
               </div>
-              <span className="font-semibold">{statusCounts.pending}</span>
+              <span className="font-semibold text-gray-800">{statusCounts.pending}</span>
             </div>
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <CheckCircle size={16} className="text-green-500 mr-2" />
-                <span className="text-sm">{t('admin.status.confirmed')}</span>
+                <span className="text-sm text-gray-700">{t('admin.status.confirmed')}</span>
               </div>
-              <span className="font-semibold">{statusCounts.confirmed}</span>
+              <span className="font-semibold text-gray-800">{statusCounts.confirmed}</span>
             </div>
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <X size={16} className="text-red-500 mr-2" />
-                <span className="text-sm">{t('admin.status.cancelled')}</span>
+                <span className="text-sm text-gray-700">{t('admin.status.cancelled')}</span>
               </div>
-              <span className="font-semibold">{statusCounts.cancelled}</span>
+              <span className="font-semibold text-gray-800">{statusCounts.cancelled}</span>
             </div>
           </div>
         </div>
@@ -89,23 +89,23 @@ const EventRegistrationStats = ({ registrations }) => {
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <Wrench size={16} className="text-blue-500 mr-2" />
-                <span className="text-sm">{t('eventSignup.ownGear')}</span>
+                <span className="text-sm text-gray-700">{t('eventSignup.ownGear')}</span>
               </div>
-              <span className="font-semibold">{gearCounts.own}</span>
+              <span className="font-semibold text-gray-800">{gearCounts.own}</span>
             </div>
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <Wrench size={16} className="text-purple-500 mr-2" />
-                <span className="text-sm">{t('eventSignup.rentalGear')}</span>
+                <span className="text-sm text-gray-700">{t('eventSignup.rentalGear')}</span>
               </div>
-              <span className="font-semibold">{gearCounts.rental}</span>
+              <span className="font-semibold text-gray-800">{gearCounts.rental}</span>
             </div>
             <div className="flex justify-between items-center">
               <div className="flex items-center">
                 <Utensils size={16} className="text-orange-500 mr-2" />
-                <span className="text-sm">{t('admin.wantsFood')}</span>
+                <span className="text-sm text-gray-700">{t('admin.wantsFood')}</span>
               </div>
-              <span className="font-semibold">{foodCount}</span>
+              <span className="font-semibold text-gray-800">{foodCount}</span>
             </div>
           </div>
         </div>
@@ -119,9 +119,9 @@ const EventRegistrationStats = ({ registrations }) => {
                 <div key={index} className="flex justify-between items-center">
                   <div className="flex items-center">
                     <User size={16} className="text-gray-500 mr-2" />
-                    <span className="text-sm truncate max-w-[150px]">{source}</span>
+                    <span className="text-sm text-gray-700 truncate max-w-[150px]">{source}</span>
                   </div>
-                  <span className="font-semibold">{count}</span>
+                  <span className="font-semibold text-gray-800">{count}</span>
                 </div>
               ))}
             </div>
