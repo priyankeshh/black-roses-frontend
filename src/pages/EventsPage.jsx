@@ -72,7 +72,7 @@ const EventsPage = () => {
             <p className="text-xl text-red-600">{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="mt-4 px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition-colors"
+              className="mt-4 px-4 py-2 bg-teal-600 text-black rounded hover:bg-teal-700 transition-colors"
             >
               {t('common.retry')}
             </button>

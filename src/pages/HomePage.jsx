@@ -140,7 +140,7 @@ const HomePage = () => {
                 <div className="flex justify-center">
                   <Link
                     to={`/event-signup/${latestEvent._id}`}
-                    className="inline-flex items-center px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded transition-colors"
+                    className="inline-flex items-center px-6 py-3 bg-teal-600 hover:bg-teal-700 text-black font-semibold rounded transition-colors"
                   >
                     {t('events.signup')}
                     <ChevronRight size={20} className="ml-1" />
@@ -195,7 +195,7 @@ const HomePage = () => {
       )}
 
       {/* Team Section */}
-      <section className="py-16 bg-gray-900 text-white">
+      <section className="py-16 bg-gray-900 text-black">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.h2
@@ -224,7 +224,7 @@ const HomePage = () => {
             >
               <Link
                 to="/contact"
-                className="inline-block px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded transition-colors"
+                className="inline-block px-6 py-3 bg-teal-600 hover:bg-teal-700 text-black font-semibold rounded transition-colors"
               >
                 {t('home.joinTeam')}
               </Link>

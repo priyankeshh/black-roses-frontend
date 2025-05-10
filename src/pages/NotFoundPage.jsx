@@ -19,7 +19,7 @@ const NotFoundPage = () => {
         <p className="text-lg text-gray-600 mb-8">{t('notFound.message')}</p>
         <Link
           to="/"
-          className="inline-block bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 px-6 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+          className="inline-block bg-teal-600 hover:bg-teal-700 text-black font-semibold py-3 px-6 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
         >
           {t('notFound.backHome')}
         </Link>

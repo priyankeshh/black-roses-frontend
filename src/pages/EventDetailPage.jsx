@@ -106,7 +106,7 @@ const EventDetailPage = () => {
           <div className="bg-white rounded-lg shadow-md p-6 text-center">
             <Link
               to={`/event-signup/${event._id}-${event.title.toLowerCase().replace(/\s+/g, '-')}`}
-              className={`inline-flex items-center px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded transition-colors ${
+              className={`inline-flex items-center px-6 py-3 bg-teal-600 hover:bg-teal-700 text-black font-semibold rounded transition-colors ${
                 isEventFull()
                   ? "bg-gray-400 cursor-not-allowed"
                   : ""

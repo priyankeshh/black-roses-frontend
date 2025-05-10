@@ -52,10 +52,10 @@ const EventCard = ({ event }) => {
         {actualEvent.status && (
           <div className={cn(
             "absolute top-2 right-2 px-3 py-1 rounded-full text-xs font-bold",
-            actualEvent.status === 'upcoming' && "bg-green-500 text-white",
-            actualEvent.status === 'ongoing' && "bg-blue-500 text-white",
-            actualEvent.status === 'completed' && "bg-gray-500 text-white",
-            actualEvent.status === 'cancelled' && "bg-red-500 text-white"
+            actualEvent.status === 'upcoming' && "bg-green-500 text-black",
+            actualEvent.status === 'ongoing' && "bg-blue-500 text-black",
+            actualEvent.status === 'completed' && "bg-gray-500 text-black",
+            actualEvent.status === 'cancelled' && "bg-red-500 text-black"
           )}>
             {t(`events.status.${actualEvent.status}`)}
           </div>
@@ -98,7 +98,7 @@ const EventCard = ({ event }) => {
           <Link
             to={`/event-signup/${eventId}-${actualEvent.title ? actualEvent.title.toLowerCase().replace(/\s+/g, '-') : 'event'}`}
             className={cn(
-              "px-4 py-2 text-white font-medium rounded transition-colors",
+              "px-4 py-2 text-black font-medium rounded transition-colors",
               isEventFull()
                 ? "bg-gray-500 cursor-not-allowed"
                 : "bg-teal-600 hover:bg-teal-700"

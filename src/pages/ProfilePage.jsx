@@ -239,7 +239,7 @@ const ProfilePage = () => {
                 </div>
                 <label
                   htmlFor="profile-image"
-                  className="absolute bottom-2 right-2 bg-teal-600 text-white p-2 rounded-full cursor-pointer hover:bg-teal-700 transition-colors shadow-md border-2 border-white"
+                  className="absolute bottom-2 right-2 bg-teal-600 text-black p-2 rounded-full cursor-pointer hover:bg-teal-700 transition-colors shadow-md border-2 border-black"
                 >
                   <Camera size={20} />
                   <input
@@ -259,7 +259,7 @@ const ProfilePage = () => {
                 <div className="space-y-3 mt-8 w-full">
                   <button
                     onClick={() => setEditMode(true)}
-                    className="w-full flex items-center justify-center space-x-2 bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg transition-colors shadow font-semibold text-base"
+                    className="w-full flex items-center justify-center space-x-2 bg-teal-600 hover:bg-teal-700 text-black py-2 px-4 rounded-lg transition-colors shadow font-semibold text-base"
                   >
                     <Edit size={20} />
                     <span>{t('profile.editProfile')}</span>
@@ -306,7 +306,7 @@ const ProfilePage = () => {
                   <div className="flex space-x-2">
                     <button
                       type="submit"
-                      className="flex-1 flex items-center justify-center space-x-1 bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg transition-colors shadow font-semibold"
+                      className="flex-1 flex items-center justify-center space-x-1 bg-teal-600 hover:bg-teal-700 text-black py-2 px-4 rounded-lg transition-colors shadow font-semibold"
                     >
                       <Check size={18} />
                       <span>{t('profile.save')}</span>
@@ -314,7 +314,7 @@ const ProfilePage = () => {
                     <button
                       type="button"
                       onClick={cancelEdit}
-                      className="flex-1 flex items-center justify-center space-x-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors shadow font-semibold"
+                      className="flex-1 flex items-center justify-center space-x-1 bg-gray-500 hover:bg-gray-600 text-black py-2 px-4 rounded-lg transition-colors shadow font-semibold"
                     >
                       <X size={18} />
                       <span>{t('profile.cancel')}</span>
@@ -371,7 +371,7 @@ const ProfilePage = () => {
                   <div className="flex space-x-2">
                     <button
                       type="submit"
-                      className="flex-1 flex items-center justify-center space-x-1 bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded-lg transition-colors shadow font-semibold"
+                      className="flex-1 flex items-center justify-center space-x-1 bg-teal-600 hover:bg-teal-700 text-black py-2 px-4 rounded-lg transition-colors shadow font-semibold"
                     >
                       <Check size={18} />
                       <span>{t('profile.save')}</span>
@@ -379,7 +379,7 @@ const ProfilePage = () => {
                     <button
                       type="button"
                       onClick={cancelPasswordChange}
-                      className="flex-1 flex items-center justify-center space-x-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-lg transition-colors shadow font-semibold"
+                      className="flex-1 flex items-center justify-center space-x-1 bg-gray-500 hover:bg-gray-600 text-black py-2 px-4 rounded-lg transition-colors shadow font-semibold"
                     >
                       <X size={18} />
                       <span>{t('profile.cancel')}</span>

@@ -308,11 +308,11 @@ const EventSignupPage = () => {
               <button
                 type="submit"
                 disabled={formSubmitting || alreadyRegistered}
-                className="w-full px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-70"
+                className="w-full px-6 py-3 bg-teal-600 hover:bg-teal-700 text-black font-semibold rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-70"
               >
                 {formSubmitting ? (
                   <span className="flex items-center justify-center">
-                    <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></span>
+                    <span className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin mr-2"></span>
                     {t('eventSignup.submit')}
                   </span>
                 ) : (

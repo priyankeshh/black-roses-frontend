@@ -73,7 +73,7 @@ const HeroSection = () => {
                 href="#events"
                 className={cn(
                   "inline-flex items-center px-6 py-3 bg-primary hover:bg-primary-dark",
-                  "text-white font-oswald rounded-md transition-colors duration-300"
+                  "text-black font-oswald rounded-md transition-colors duration-300"
                 )}
               >
                 {t('home.cta')}
