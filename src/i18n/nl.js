@@ -248,7 +248,9 @@ export default {
     upload: 'Uploaden',
     selected: 'geselecteerd',
     loading: 'Laden...',
-    preview: 'Voorbeeld'
+    preview: 'Voorbeeld',
+    previous: 'Vorige',
+    next: 'Volgende'
   },
   albums: {
     title: 'Albums',

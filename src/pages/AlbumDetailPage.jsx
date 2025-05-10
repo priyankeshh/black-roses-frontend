@@ -25,6 +25,7 @@ import { useAuth } from '../context/AuthContext';
 import { cn } from '../lib/utils';
 import LoadingSpinner from '../components/LoadingSpinner';
 import AddYouTubeModal from '../components/AddYouTubeModal';
+import ImageGallery from '../components/ImageGallery';
 
 const AlbumDetailPage = () => {
   const { id } = useParams();
@@ -44,6 +45,8 @@ const AlbumDetailPage = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [totalFiles, setTotalFiles] = useState(0);
   const [uploadedFiles, setUploadedFiles] = useState(0);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   useEffect(() => {
     const fetchAlbum = async () => {
@@ -255,7 +258,8 @@ const AlbumDetailPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-20">
+    <div className="pt-24 pb-16 min-h-screen bg-gray-100">
+      <div className="container mx-auto px-4">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <div>
@@ -263,7 +267,7 @@ const AlbumDetailPage = () => {
             <ArrowLeft size={18} className="mr-1" />
             {t('albums.back')}
           </Link>
-          <h1 className="text-3xl font-bold">{album.title}</h1>
+          <h1 className="text-3xl font-bold text-gray-900">{album.title}</h1>
         </div>
 
         {isAdmin() && (
@@ -443,9 +447,15 @@ const AlbumDetailPage = () => {
           {/* Images Gallery */}
           {album.images && album.images.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {album.images.map((image) => (
+              {album.images.map((image, index) => (
                 <div key={image._id} className="relative group">
-                  <div className="aspect-square bg-gray-100 rounded-md overflow-hidden">
+                  <div
+                    className="aspect-square bg-gray-100 rounded-md overflow-hidden cursor-pointer"
+                    onClick={() => {
+                      setSelectedImageIndex(index);
+                      setGalleryOpen(true);
+                    }}
+                  >
                     <img
                       src={image.url}
                       alt={image.title || album.title}
@@ -453,17 +463,23 @@ const AlbumDetailPage = () => {
                     />
                   </div>
                   {isAdmin() && (
-                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-2">
+                    <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center space-x-2 z-10">
                       <button
-                        onClick={() => handleSetCoverImage(image.url, image.publicId)}
-                        className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSetCoverImage(image.url, image.publicId);
+                        }}
+                        className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 shadow-md"
                         title={t('albums.selectCoverImage')}
                       >
                         <Check size={16} />
                       </button>
                       <button
-                        onClick={() => handleDeleteImage(image._id)}
-                        className="p-2 bg-red-600 text-white rounded-full hover:bg-red-700"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteImage(image._id);
+                        }}
+                        className="p-2 bg-red-600 text-white rounded-full hover:bg-red-700 shadow-md"
                         title={t('common.delete')}
                       >
                         <Trash2 size={16} />
@@ -482,6 +498,15 @@ const AlbumDetailPage = () => {
             <div className="bg-gray-100 text-gray-600 p-8 rounded-md text-center">
               <p>{t('albums.noMedia')}</p>
             </div>
+          )}
+
+          {/* Image Gallery Modal */}
+          {galleryOpen && album.images && album.images.length > 0 && (
+            <ImageGallery
+              images={album.images}
+              initialIndex={selectedImageIndex}
+              onClose={() => setGalleryOpen(false)}
+            />
           )}
         </div>
       )}
@@ -523,7 +548,7 @@ const AlbumDetailPage = () => {
                       ></iframe>
                     </div>
                     {video.title && (
-                      <p className="mt-2 text-gray-700">{video.title}</p>
+                      <p className="mt-2 text-gray-800 font-medium">{video.title}</p>
                     )}
                     {isAdmin() && (
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -556,6 +581,7 @@ const AlbumDetailPage = () => {
           onAddVideo={handleAddVideo}
         />
       )}
+      </div>
     </div>
   );
 };

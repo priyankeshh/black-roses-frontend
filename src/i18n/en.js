@@ -248,7 +248,9 @@ export default {
     upload: 'Upload',
     selected: 'selected',
     loading: 'Loading...',
-    preview: 'Preview'
+    preview: 'Preview',
+    previous: 'Previous',
+    next: 'Next'
   },
   albums: {
     title: 'Albums',
