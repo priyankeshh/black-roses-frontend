@@ -24,7 +24,8 @@ const EventSignupPage = () => {
     email: '',
     phone: '',
     gear: 'own',
-    wantsFood: false
+    wantsFood: false,
+    invitedBy: ''
   });
 
   useEffect(() => {
@@ -287,6 +288,21 @@ const EventSignupPage = () => {
                     {t('eventSignup.wantsFood')}
                   </label>
                 </div>
+              </div>
+
+              <div>
+                <label htmlFor="invitedBy" className="block text-gray-700 font-medium mb-1">
+                  {t('eventSignup.invitedBy')}
+                </label>
+                <input
+                  type="text"
+                  id="invitedBy"
+                  name="invitedBy"
+                  value={formData.invitedBy}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  placeholder={t('eventSignup.invitedByPlaceholder')}
+                />
               </div>
 
               <button

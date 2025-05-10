@@ -153,6 +153,7 @@ const EventRegistrationsTable = ({ event, onUpdateStatus }) => {
                             <p className="font-semibold mb-1">{t('admin.additionalInfo')}</p>
                             <p><span className="font-medium">{t('admin.gear')}:</span> {registration.gear || '-'}</p>
                             <p><span className="font-medium">{t('admin.wantsFood')}:</span> {registration.wantsFood ? t('common.yes') : t('common.no')}</p>
+                            <p><span className="font-medium">{t('eventSignup.invitedBy')}:</span> {registration.invitedBy || '-'}</p>
                             <p><span className="font-medium">{t('admin.registeredAt')}:</span> {formatDate(registration.registeredAt)}</p>
                           </div>
                         </div>
